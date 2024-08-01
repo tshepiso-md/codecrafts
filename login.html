@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-side">
+            <div class="welcome-message">
+                <h1>Welcome!<br>We Are Glad To<br>See You</h1>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="login-form">
+                <h2>LOG IN</h2>
+                <p>Log in with one of the following options</p>
+                <form action="#">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+
+                    <button type="submit" onclick="navigateToHomepage()" >LOG IN</button>
+                    <script>
+                        function navigateToHomepage() {
+                            window.location.href = 'homepage.html';
+                        }
+                    </script>
+                </form>
+                <p class="signup-text">Don't have an account? <a href="#" onclick="navigateToSignUp()">Sign up</a></p>
+                <script>
+                    function navigateToSignUp() {
+                        window.location.href = 'signup.html';
+                    }
+                    function navigateToadmin() {
+                        window.location.href = 'adnim.html';
+                    }
+                </script>
+                
+                <a href="#" class="admin-account" onclick="navigateToadmin()">admin Account</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

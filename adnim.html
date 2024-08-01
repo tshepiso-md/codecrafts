@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crown and Polish Beauty Studio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #f8d7da;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header .admin {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-weight: bold;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            position: fixed;
+        }
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 10px 0;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+      
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .action-buttons {
+            
+            
+            margin-top: 2%;
+            margin-right: 2rem;
+            width: 200px;
+            height: 40px;
+            
+        }
+
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        
+        .pending {
+            color: orange;
+        }
+        .approved {
+            color: green;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        
+        .available {
+            color: green;
+        }
+        .not-available {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="title">Crown and Polish Beauty Studio</div>
+        <div class="admin">admin</div>
+    </div>
+
+    <div class="sidebar">
+        <a href="#">Bookings</a>
+        <a href="#">Employees</a>
+        <a href="#">Finances</a>
+        <a href="#">Stock Taking</a>
+        <a href="#">Inbox</a>
+    </div>
+
+    <div class="content"> <h1>Weekly Booking Sheet</h1>
+        <table id="bookingTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Service</th>
+                    <th>Employee</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Meza_T</td>
+                    <td>Nails</td>
+                    <td>Sethabile</td>
+                    <td>29/05</td>
+                    <td>15:00 PM</td>
+                    <td class="action-buttons">
+                        <button onclick="editBooking(this)">Edit</button>
+                        <button onclick="deleteBooking(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>sinoT</td>
+                    <td>Massage</td>
+                    <td>Lydia</td>
+                    <td>29/05</td>
+                    <td>09:00 AM</td>
+                    <td class="action-buttons">
+                        <button onclick="editBooking(this)">Edit</button>
+                        <button onclick="deleteBooking(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>welcome</td>
+                    <td>Facial, Massage</td>
+                    <td>Musa, Khosi</td>
+                    <td>30/05</td>
+                    <td>13:00 PM</td>
+                    <td class="action-buttons">
+                        <button onclick="editBooking(this)">Edit</button>
+                        <button onclick="deleteBooking(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>lindiwe</td>
+                    <td>Hair</td>
+                    <td>Anyone</td>
+                    <td>31/05</td>
+                    <td>13:00 PM</td>
+                    <td class="action-buttons">
+                        <button onclick="editBooking(this)">Edit</button>
+                        <button onclick="deleteBooking(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Shawn@l</td>
+                    <td>Nails</td>
+                    <td>Kamogelo</td>
+                    <td>29/05</td>
+                    <td>11:00 AM</td>
+                    <td class="action-buttons">
+                        <button onclick="editBooking(this)">Edit</button>
+                        <button onclick="deleteBooking(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>loyisoKhoza</td>
+                    <td>Hair</td>
+                    <td>Nkosi</td>
+                    <td>01/06</td>
+                    <td>17:00 PM</td>
+                    <td class="action-buttons">
+                        <button onclick="editBooking(this)">Edit</button>
+                        <button onclick="deleteBooking(this)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="action-buttons" onclick="addBooking()">Add Booking</button>
+        <h1>Weekly Employee Sheet</h1>
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Employee Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Client</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Sethabile</td>
+                    <td>29/05</td>
+                    <td>15:00 PM</td>
+                    <td>Meza Thabiso</td>
+                    <td class="action-buttons">
+                        <button onclick="editEmployee(this)">Edit</button>
+                        <button onclick="deleteEmployee(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Kamogelo</td>
+                    <td>29/05</td>
+                    <td>11:00 AM</td>
+                    <td>Shawn Letwaba</td>
+                    <td class="action-buttons">
+                        <button onclick="editEmployee(this)">Edit</button>
+                        <button onclick="deleteEmployee(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Buhle</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="action-buttons">
+                        <button onclick="editEmployee(this)">Edit</button>
+                        <button onclick="deleteEmployee(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Nkosi</td>
+                    <td>01/06</td>
+                    <td>17:00 PM</td>
+                    <td>Loyiso Khoza</td>
+                    <td class="action-buttons">
+                        <button onclick="editEmployee(this)">Edit</button>
+                        <button onclick="deleteEmployee(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Lebogang</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="action-buttons">
+                        <button onclick="editEmployee(this)">Edit</button>
+                        <button onclick="deleteEmployee(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Musa</td>
+                    <td>30/05</td>
+                    <td>13:00 PM</td>
+                    <td>Welcome Chai</td>
+                    <td class="action-buttons">
+                        <button onclick="editEmployee(this)">Edit</button>
+                        <button onclick="deleteEmployee(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Khosi</td>
+                    <td>30/05</td>
+                    <td>13:00 PM</td>
+                    <td>Welcome Chai</td>
+                    <td class="action-buttons">
+                        <button onclick="editEmployee(this)">Edit</button>
+                        <button onclick="deleteEmployee(this)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Lydia</td>
+                    <td>29/05</td>
+                    <td>09:00 AM</td>
+                    <td>Sino Fefe</td>
+                    <td class="action-buttons">
+                        <button onclick="editEmployee(this)">Edit</button>
+                        <button onclick="deleteEmployee(this)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="addEmployee()">Add Employee</button>
+        
+        <h1>Bookings in Waiting</h1>
+        <table id="waitingTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Service</th>
+                    <th>Date and Time</th>
+                    <th>Employee Confirmation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Hair</td>
+                    <td>31/05, 13:00 PM</td>
+                    <td>-</td>
+                    <td class="action-buttons">
+                        <button class="pending" onclick="markPending(this)">Pending</button>
+                        <button class="approved" onclick="markApproved(this)">Approved</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="addBooking()">Add Booking</button>
+        <h1>Stock Availability</h1>
+        <table id="stockTable">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Item</th>
+                    <th>Availability</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Nail glue</td>
+                    <td class="available">Yes</td>
+                    <td class="action-buttons">
+                        <button onclick="markAvailable(this)">Available</button>
+                        <button onclick="markNotAvailable(this)">Not Available</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Hair piece</td>
+                    <td class="available">Yes</td>
+                    <td class="action-buttons">
+                        <button onclick="markAvailable(this)">Available</button>
+                        <button onclick="markNotAvailable(this)">Not Available</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Facial oils</td>
+                    <td class="available">Yes</td>
+                    <td class="action-buttons">
+                        <button onclick="markAvailable(this)">Available</button>
+                        <button onclick="markNotAvailable(this)">Not Available</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Massage oils</td>
+                    <td class="not-available">No</td>
+                    <td class="action-buttons">
+                        <button onclick="markAvailable(this)">Available</button>
+                        <button onclick="markNotAvailable(this)">Not Available</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Finishing spray</td>
+                    <td class="available">Yes</td>
+                    <td class="action-buttons">
+                        <button onclick="markAvailable(this)">Available</button>
+                        <button onclick="markNotAvailable(this)">Not Available</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="addStockItem()">Add Item</button>
+
+
+
+        <script>
+            function addBooking() {
+                const table = document.getElementById('bookingTable').getElementsByTagName('tbody')[0];
+                const rowCount = table.rows.length;
+                const newRow = table.insertRow(rowCount);
+    
+                const cell1 = newRow.insertCell(0);
+                const cell2 = newRow.insertCell(1);
+                const cell3 = newRow.insertCell(2);
+                const cell4 = newRow.insertCell(3);
+                const cell5 = newRow.insertCell(4);
+                const cell6 = newRow.insertCell(5);
+                const cell7 = newRow.insertCell(6);
+    
+                cell1.innerHTML = rowCount + 1;
+                cell2.innerHTML = prompt("Enter Username:");
+                cell3.innerHTML = prompt("Enter Service:");
+                cell4.innerHTML = prompt("Enter Employee:");
+                cell5.innerHTML = prompt("Enter Date (DD/MM):");
+                cell6.innerHTML = prompt("Enter Time (HH:MM AM/PM):");
+                cell7.className = "action-buttons";
+                cell7.innerHTML = '<button onclick="editBooking(this)">Edit</button> <button onclick="deleteBooking(this)">Delete</button>';
+            }
+    
+            function deleteBooking(r) {
+                const i = r.parentNode.parentNode.rowIndex;
+                document.getElementById("bookingTable").deleteRow(i);
+            }
+    
+            function editBooking(r) {
+                const row = r.parentNode.parentNode;
+                row.cells[1].innerHTML = prompt("Edit Username:", row.cells[1].innerHTML);
+                row.cells[2].innerHTML = prompt("Edit Service:", row.cells[2].innerHTML);
+                row.cells[3].innerHTML = prompt("Edit Employee:", row.cells[3].innerHTML);
+                row.cells[4].innerHTML = prompt("Edit Date (DD/MM):", row.cells[4].innerHTML);
+                row.cells[5].innerHTML = prompt("Edit Time (HH:MM AM/PM):", row.cells[5].innerHTML);
+            }
+            function addEmployee() {
+            const table = document.getElementById('employeeTable').getElementsByTagName('tbody')[0];
+            const rowCount = table.rows.length;
+            const newRow = table.insertRow(rowCount);
+
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            const cell5 = newRow.insertCell(4);
+            const cell6 = newRow.insertCell(5);
+
+            cell1.innerHTML = rowCount + 1;
+            cell2.innerHTML = prompt("Enter Employee Name:");
+            cell3.innerHTML = prompt("Enter Date (DD/MM):");
+            cell4.innerHTML = prompt("Enter Time (HH:MM AM/PM):");
+            cell5.innerHTML = prompt("Enter Client Name:");
+            cell6.className = "action-buttons";
+            cell6.innerHTML = '<button onclick="editEmployee(this)">Edit</button> <button onclick="deleteEmployee(this)">Delete</button>';
+        }
+
+        function deleteEmployee(r) {
+            const i = r.parentNode.parentNode.rowIndex;
+            document.getElementById("employeeTable").deleteRow(i);
+        }
+
+        function editEmployee(r) {
+            const row = r.parentNode.parentNode;
+            row.cells[1].innerHTML = prompt("Edit Employee Name:", row.cells[1].innerHTML);
+            row.cells[2].innerHTML = prompt("Edit Date (DD/MM):", row.cells[2].innerHTML);
+            row.cells[3].innerHTML = prompt("Edit Time (HH:MM AM/PM):", row.cells[3].innerHTML);
+            row.cells[4].innerHTML = prompt("Edit Client Name:", row.cells[4].innerHTML);
+        }
+        function addBooking() {
+            const table = document.getElementById('waitingTable').getElementsByTagName('tbody')[0];
+            const rowCount = table.rows.length;
+            const newRow = table.insertRow(rowCount);
+
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            const cell5 = newRow.insertCell(4);
+
+            cell1.innerHTML = rowCount + 1;
+            cell2.innerHTML = prompt("Enter Service:");
+            cell3.innerHTML = prompt("Enter Date and Time (DD/MM, HH:MM AM/PM):");
+            cell4.innerHTML = prompt("Enter Employee Confirmation (if available):");
+            cell5.className = "action-buttons";
+            cell5.innerHTML = '<button class="pending" onclick="markPending(this)">Pending</button> <button class="approved" onclick="markApproved(this)">Approved</button>';
+        }
+
+        function markPending(button) {
+            const row = button.parentNode.parentNode;
+            row.cells[3].innerHTML = 'Pending';
+            row.cells[3].style.color = 'orange';
+        }
+
+        function markApproved(button) {
+            const row = button.parentNode.parentNode;
+            row.cells[3].innerHTML = 'Approved';
+            row.cells[3].style.color = 'green';
+        }
+        function addStockItem() {
+            const table = document.getElementById('stockTable').getElementsByTagName('tbody')[0];
+            const rowCount = table.rows.length;
+            const newRow = table.insertRow(rowCount);
+
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+
+            cell1.innerHTML = rowCount + 1;
+            cell2.innerHTML = prompt("Enter Item:");
+            cell3.innerHTML = prompt("Is the item available? (Yes/No):");
+            cell3.className = cell3.innerHTML.toLowerCase() === 'yes' ? 'available' : 'not-available';
+            cell4.className = "action-buttons";
+            cell4.innerHTML = '<button onclick="markAvailable(this)">Available</button> <button onclick="markNotAvailable(this)">Not Available</button>';
+        }
+
+        function markAvailable(button) {
+            const row = button.parentNode.parentNode;
+            row.cells[2].innerHTML = 'Yes';
+            row.cells[2].className = 'available';
+        }
+
+        function markNotAvailable(button) {
+            const row = button.parentNode.parentNode;
+            row.cells[2].innerHTML = 'No';
+            row.cells[2].className = 'not-available';
+        }
+        </script>
+
+
+    </div>
+
+</body>
+</html>

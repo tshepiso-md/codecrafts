@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #333;
+        }
+        .confirmation-box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+            width: 300px;
+        }
+        .confirmation-box .icon {
+            background-color: #ddd;
+            border-radius: 50%;
+            padding: 20px;
+            display: inline-block;
+        }
+        .confirmation-box .icon .checkmark {
+            color: #d63384;
+            font-size: 36px;
+        }
+        .confirmation-box .message {
+            color: #d63384;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .confirmation-box .ok-button {
+            background-color: #ddd;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .confirmation-box .ok-button:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-box">
+        <div class="icon">
+            <span class="checkmark">✔</span>
+        </div>
+        <div class="message">APPOINTMENT BOOKED</div>
+        <button class="ok-button" onclick="navigateToHomepage()">OK</button>
+    </div>
+    <script>
+        function navigateToHomepage() {
+            window.location.href = 'homepage.html';
+        }
+    </script>
+</body>
+</html>

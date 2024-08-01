@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Form</title>
+    <link rel="stylesheet" href="bookings.css">
+</head>
+<body>
+    <div class="booking-container">
+        <h1>Bookings</h1>
+        <div class="booking-content">
+            <div class="booking-form">
+                <h2>please fill out the booking form below <br> (you can select more than one service)</h2>
+                <form action="#">
+                    <h3>which services would you like to book?</h3>
+                    <label><input type="checkbox" name="services" value="nails"> nails</label>
+                    <label><input type="checkbox" name="services" value="hair"> hair</label>
+                    <label><input type="checkbox" name="services" value="facials"> facials</label>
+                    <label><input type="checkbox" name="services" value="full-body-massage"> full body massage</label>
+
+                    <div class="service-options">
+                        <h4>nails done by?</h4>
+                        <label><input type="radio" name="nails" value="Sethabile"> Sethabile</label>
+                        <label><input type="radio" name="nails" value="Kamogelo"> Kamogelo</label>
+                        <label><input type="radio" name="nails" value="anyone"> anyone available</label>
+
+                        <h4>Hair done by?</h4>
+                        <label><input type="radio" name="hair" value="Buhle"> Buhle</label>
+                        <label><input type="radio" name="hair" value="Nkosi"> Nkosi</label>
+                        <label><input type="radio" name="hair" value="anyone"> anyone available</label>
+
+                        <h4>Facials done by?</h4>
+                        <label><input type="radio" name="facials" value="lebogang"> lebogang</label>
+                        <label><input type="radio" name="facials" value="Musa"> Musa</label>
+                        <label><input type="radio" name="facials" value="anyone"> anyone available</label>
+
+                        <h4>massage done by?</h4>
+                        <label><input type="radio" name="massage" value="Khosi"> Khosi</label>
+                        <label><input type="radio" name="massage" value="Lydia"> Lydia</label>
+                        <label><input type="radio" name="massage" value="anyone"> anyone available</label>
+                    </div>
+                </form>
+            </div>
+            <div class="booking-details">
+                <h3>SELECT date and time</h3>
+                <div class="date-time">
+                    <input type="date" id="booking-date">
+                    <div class="time-slots">
+                        <label><input type="radio" name="time" value="09:00 AM"> 09:00 AM</label>
+                        <label><input type="radio" name="time" value="11:00 AM"> 11:00 AM</label>
+                        <label><input type="radio" name="time" value="13:00 PM"> 13:00 PM</label>
+                        <label><input type="radio" name="time" value="15:00 PM"> 15:00 PM</label>
+                        <label><input type="radio" name="time" value="17:00 PM"> 17:00 PM</label>
+                    </div>
+                </div>
+
+                <div class="login-details">
+                    <h3>Username</h3>
+                    <input type="text" id="username" name="username">
+                    <h3>Password</h3>
+                    <input type="password" id="password" name="password">
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <button type="submit" class="book-button" onclick="navigateTobook()">BOOK</button>
+                    
+                    <p>Don't have an account? <a href="#" class="signup-link" onclick="navigateToSignUp()">Sign up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function navigateTobook() {
+            window.location.href = 'bookingconfrm.html';
+        }
+        function navigateToSignUp() {
+            window.location.href = 'signup.html';
+        }
+    </script>
+</body>
+</html>
