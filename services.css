@@ -1,16 +1,35 @@
 /*
-	@name services
+	services.css
 */
 /* Only edit this if you know what you are doing! */
-body { margin: 0px; padding: 0px; font-family:"Arial"; overflow-x:hidden; }
+body { 
+	margin: 0px; 
+	padding: 0px; 
+	font-family:"Inknut Antiqua"; 
+	overflow-x:hidden; }
 
 /* Only edit this if you know what you are doing! */
-img { position: absolute; display: block; margin: 0px; border: none; padding: 0px; }
+img { 
+	position: absolute; 
+	display: block; 
+	margin: 0px; 
+	border: none; 
+	padding: 0px; }
 
 /* Only edit this if you know what you are doing! */
-div { position: absolute; }
+div { 
+	position: absolute; }
 
-#content-container { display: block; position: relative; width: 1440px; width: 1440px; height: 2506px; overflow: hidden; display: block;  margin-left: auto; margin-right: auto;  }
+#content-container { 
+	display: block; 
+	position: relative; 
+	width: 1440px; 
+	width: 1440px; 
+	height: 2506px; 
+	overflow: hidden; 
+	display: block;  
+	margin-left: auto; 
+	margin-right: auto;  }
 
 
 #page_services_ek1 {
@@ -19,15 +38,6 @@ div { position: absolute; }
 	width: 1440px;
 	height: 2506px;
 }
-
-#_bg__services_ek2 {
-	top: 0px;
-	left: 0px;
-	width: 1440px;
-	height: 2506px;
-	background:rgba(255,255,255,1);
-}
-
 
 #rectangle_22 {
 	top: 1462px;
