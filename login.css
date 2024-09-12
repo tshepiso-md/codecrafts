@@ -104,6 +104,7 @@ button:hover {
     background: linear-gradient(to right, #c0392b, #8e44ad);
 }
 
+/* Signup button style */
 .signup-text {
     text-align: center;
     margin-top: 20px;
@@ -113,23 +114,27 @@ button:hover {
 .signup-text a {
     color: #8e44ad;
     text-decoration: none;
+    font-size: 0.8rem;
 }
 
 .signup-text a:hover {
     text-decoration: underline;
 }
 
+/* Login as admin */
 .admin-account {
     display: block;
     text-align: center;
     margin-top: 10px;
     color: #8e44ad;
     text-decoration: none;
+    font-size: 0.8rem;
 }
 
 .admin-account:hover {
     text-decoration: underline;
 }
+
 
 @media (max-width: 768px) {
     .container {
