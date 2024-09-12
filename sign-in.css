@@ -58,7 +58,7 @@ body, html {
 }
 
 .signup-form p {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     color: #333;
 }
 
@@ -123,4 +123,27 @@ button:hover {
     }
 }
 
+.signup-form {
+    max-width: 400px; /* Optional: Set a max width for the signup form */
+    margin: 0 auto; /* Center the form */
+}
+
+.input-group {
+    margin-bottom: -1.2rem; /* Further reduce the space between input groups */
+}
+
+.input-group label {
+    display: block; /* Make labels take full width */
+    margin-bottom: 0.1rem; /* Further reduce the space below labels */
+}
+
+.input-group input {
+    width: 100%; /* Make inputs take full width */
+    padding: 0.4rem; /* Adjust padding for better usability */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.btn {
+    margin-top: 0.5rem; /* Reduce the space above the button */
+}
 
