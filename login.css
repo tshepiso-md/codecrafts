@@ -107,6 +107,7 @@ button:hover {
     background: linear-gradient(to right, #c0392b, #8e44ad);
 }
 
+/* Signup button style */
 .signup-text {
     text-align: center;
     margin-top: 20px;
@@ -123,6 +124,7 @@ button:hover {
     text-decoration: underline;
 }
 
+/* Login as admin */
 .admin-account {
     display: block;
     text-align: center;
@@ -135,6 +137,7 @@ button:hover {
 .admin-account:hover {
     text-decoration: underline;
 }
+
 
 @media (max-width: 768px) {
     .popup-content {

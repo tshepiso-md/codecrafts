@@ -1,0 +1,1365 @@
+/*
+	services.css
+*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Only edit this if you know what you are doing! */
+body { 
+	margin: 0px; 
+	padding: 0px; 
+	overflow-x:hidden; 
+	line-height: 1.6;
+}
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+header {
+    background: #f8f8f8;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    float: left;
+    margin-top: 10px;
+}
+
+header nav {
+    float: right;
+    margin-top: 15px;
+}
+
+header ul {
+    list-style: none;
+}
+
+header ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+header ul li a,
+header ul li .login-button {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+header ul li .login-button {
+    background: #D5A7E5;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.login-button {
+    background-color: #007BFF; /* Change to your desired color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+/* Only edit this if you know what you are doing! */
+img { 
+	position: absolute; 
+	display: block; 
+	margin: 0px; 
+	border: none; 
+	padding: 0px; }
+
+/* Only edit this if you know what you are doing! */
+div { 
+	position: absolute; }
+
+#content-container { 
+	display: block; 
+	position: relative; 
+	width: 1440px; 
+	width: 1440px; 
+	height: 2506px; 
+	overflow: hidden; 
+	display: block;  
+	margin-left: auto; 
+	margin-right: auto;  }
+
+
+#page_services_ek1 {
+	top: 0px;
+	left: 0px;
+	width: 1440px;
+	height: 2506px;
+}
+
+
+#rectangle_22 {
+	top: 1462px;
+	left: -155px;
+	width: 1750px;
+	height: 587px;
+	-ms-border-radius: 15px;
+	-o-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	background:rgba(255,255,255,0);
+	background: -webkit-linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.16) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+	background: -o-linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.16) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+	background: -moz-linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.16) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+	background: -ms-linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.16) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+	background: linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.16) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+}
+
+
+#rectangle_23 {
+	top: 2212px;
+	left: -184px;
+	width: 1809px;
+	height: 650px;
+	-ms-border-radius: 15px;
+	-o-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	background:rgba(255,255,255,0);
+	background: -webkit-linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.17) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+	background: -o-linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.17) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+	background: -moz-linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.17) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+	background: -ms-linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.17) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+	background: linear-gradient(-270deg , rgba(219.11,153.44,224.83,0.17) 0%, rgba(227.37,121.08,184.86,0.17) 100%);
+}
+
+
+#crown___polish_beauty_studio {
+	top: -3px;
+	left: 20px;
+	width: 416px;
+	height: 66px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 20px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#home {
+	top: 3px;
+	left: 755px;
+	width: 99px;
+	height: 21px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 12px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#services_ek3 {
+	top: 3px;
+	left: 843px;
+	width: 87px;
+	height: 20px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 12px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#bookings {
+	top: 2px;
+	left: 939px;
+	width: 104px;
+	height: 26px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 12px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#about {
+	top: 2px;
+	left: 1039px;
+	width: 114px;
+	height: 29px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 12px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#gallery {
+	top: 3px;
+	left: 1136px;
+	width: 83px;
+	height: 23px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 12px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#contact {
+	top: 3px;
+	left: 1228px;
+	width: 85px;
+	height: 29px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 12px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#rectangle_1 {
+	top: 49px;
+	left: 0px;
+	width: 2000px;
+	height: 329px;
+}
+
+
+#services___prices {
+	top: 160px;
+	left: 543px;
+	width: 776px;
+	height: 123px;
+	overflow: hidden;
+	font-family: Hepta Slab;
+	font-size: 48px;
+	font-weight: bold;
+	text-align: left;
+	color:#0B0B0B;
+}
+
+
+#home____services {
+	top: 265px;
+	left: 682px;
+	width: 231px;
+	height: 36px;
+	overflow: hidden;
+	font-family: Hepta Slab;
+	font-size: 16px;
+	text-decoration: underline;
+	text-align: left;
+	color:#000000;
+}
+
+
+#fresh__shiny__bright {
+	top: 479px;
+	left: 72px;
+	width: 297px;
+	height: 54px;
+	overflow: hidden;
+	font-family: Hepta Slab;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#nail_care {
+	top: 394px;
+	left: 682px;
+	width: 376px;
+	height: 82px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#make_your_day_shine_with_your_shiny_nails {
+	top: 539px;
+	left: 72px;
+	width: 514px;
+	height: 94px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 32px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#rectangle_15 {
+	top: 454px;
+	left: 597px;
+	width: 616px;
+	height: 264px;
+}
+
+
+#hands___feet {
+	top: 735px;
+	left: 155px;
+	width: 488px;
+	height: 54px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#756F6F;
+}
+
+
+#classic_manicure___________________________r_150 {
+	top: 778px;
+	left: 77px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#spa_manicure_________________________________r_200 {
+	top: 826px;
+	left: 77px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#aloe_vera_manicure________________________r_300 {
+	top: 941px;
+	left: 76px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#gel_manicure__________________________________r_250 {
+	top: 884px;
+	left: 77px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#service_length_35_minutes {
+	top: 853px;
+	left: 77px;
+	width: 203.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_40_minutes {
+	top: 907px;
+	left: 78px;
+	width: 207.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_45_minutes {
+	top: 969px;
+	left: 76px;
+	width: 205.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#organic_express_pedi_____________________r_300 {
+	top: 998px;
+	left: 78px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#signature_gel_manicure__________________r_360 {
+	top: 1057px;
+	left: 76px;
+	width: 446px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#hard_gel_full_set_____________________________r_400 {
+	top: 1114px;
+	left: 78px;
+	width: 427px;
+	height: 26px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#service_length_60_minutes {
+	top: 1141px;
+	left: 79px;
+	width: 207.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_35_45_minutes {
+	top: 1023px;
+	left: 77px;
+	width: 227.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_50_minutes {
+	top: 1084px;
+	left: 77px;
+	width: 205.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#mini_manicure________________________________r_180 {
+	top: 1175px;
+	left: 76px;
+	width: 427px;
+	height: 26px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#age_3_12_years__service_length_20_30_minutes {
+	top: 1202px;
+	left: 76px;
+	width: 339.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#paint_packages {
+	top: 735px;
+	left: 813px;
+	width: 488px;
+	height: 54px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#756F6F;
+}
+
+
+#acrylic_full_set________________________________r_340 {
+	top: 1236px;
+	left: 76px;
+	width: 427px;
+	height: 47px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#acrylic_removal________________________________r_100 {
+	top: 1297px;
+	left: 77px;
+	width: 427px;
+	height: 52px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#gel_color_change________________________________r_140 {
+	top: 1366px;
+	left: 76px;
+	width: 553px;
+	height: 44px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#service_length_30_40_minutes {
+	top: 1263px;
+	left: 77px;
+	width: 231.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_10_15_minutes {
+	top: 1321px;
+	left: 79px;
+	width: 242.5px;
+	height: 26.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_25_30_minutes {
+	top: 1394px;
+	left: 78px;
+	width: 228.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#nail_art__________________________________________r_120 {
+	top: 777px;
+	left: 710px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#gel_applications___________________________r_110 {
+	top: 942px;
+	left: 710px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#french_polish_________________________________r_150 {
+	top: 835px;
+	left: 710px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#paraffin_mask_________________________________r_120 {
+	top: 885px;
+	left: 710px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#callus_treatment___________________________r_145 {
+	top: 1054px;
+	left: 710px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#gel_polish_removal________________________r_150 {
+	top: 995px;
+	left: 710px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#holographic_effect___________________________r_160 {
+	top: 1175px;
+	left: 710px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#collagen_mask________________________________r_100 {
+	top: 1113px;
+	left: 710px;
+	width: 427px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#service_length_15_minutes {
+	top: 804px;
+	left: 710px;
+	width: 202.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_25_minutes {
+	top: 858px;
+	left: 712px;
+	width: 204.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_25_minutes_ek1 {
+	top: 911px;
+	left: 711px;
+	width: 204.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_15_minutes_ek1 {
+	top: 971px;
+	left: 710px;
+	width: 202.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_25_minutes_ek2 {
+	top: 1022px;
+	left: 710px;
+	width: 204.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_30_minutes {
+	top: 1085px;
+	left: 711px;
+	width: 205.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_20_30_minutes {
+	top: 1140px;
+	left: 710px;
+	width: 229.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#service_length_25_30_minutes_ek1 {
+	top: 1198px;
+	left: 710px;
+	width: 228.5px;
+	height: 43.5px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 13px;
+	text-align: left;
+	color:#A9A5A5;
+}
+
+
+#hair {
+	top: 1462px;
+	left: 700px;
+	width: 376px;
+	height: 82px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#men {
+	top: 2212px;
+	left: 710px;
+	width: 128px;
+	height: 82px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#rectangle_16 {
+	top: 1550px;
+	left: 85px;
+	width: 306px;
+	height: 242px;
+}
+
+
+#rectangle_21 {
+	top: 2296px;
+	left: 1007px;
+	width: 306px;
+	height: 242px;
+}
+
+
+#rectangle_20 {
+	top: 2296px;
+	left: 539px;
+	width: 306px;
+	height: 242px;
+}
+
+
+#braids {
+	top: 1792px;
+	left: 205px;
+	width: 170px;
+	height: 39px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#rectangle_17 {
+	top: 1552px;
+	left: 515px;
+	width: 312px;
+	height: 240px;
+}
+
+
+#rectangle_18 {
+	top: 1552px;
+	left: 983px;
+	width: 312px;
+	height: 240px;
+}
+
+
+#cornrows {
+	top: 1792px;
+	left: 633px;
+	width: 140px;
+	height: 36px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#dreadlocks {
+	top: 1792px;
+	left: 1091px;
+	width: 159px;
+	height: 42px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#dreadlocks_ek1 {
+	top: 2538px;
+	left: 1128px;
+	width: 159px;
+	height: 42px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#rectangle_19 {
+	top: 2296px;
+	left: 85px;
+	width: 305px;
+	height: 249px;
+}
+
+
+#braids_ek1 {
+	top: 2549px;
+	left: 205px;
+	width: 159px;
+	height: 42px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+
+#fade {
+	top: 2545px;
+	left: 671px;
+	width: 159px;
+	height: 42px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	text-align: left;
+	color:#000000;
+}
+
+#frame_1 {
+	top: 1837px;
+	left: 92px;
+	width: 305px;
+	height: 212px;
+}
+#frame_3 {
+	top: 2590px;
+	left: 1048px;
+	width: 291px;
+	height: 181px;
+}
+
+#twist_locs______________________r250 {
+	top: 7px;
+	left: 15px;
+	width: 295px;
+	height: 34px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#basket_weave_________________r360 {
+	top: 41px;
+	left: 15px;
+	width: 293px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#high_top_________________________r350 {
+	top: 76px;
+	left: 17px;
+	width: 302px;
+	height: 52px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#short_locs_________________________r230 {
+	top: 111px;
+	left: 17px;
+	width: 372px;
+	height: 41px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+#frame_4 {
+	top: 2590px;
+	left: 543px;
+	width: 271px;
+	height: 181px;
+}
+
+#high_fade____________________r160 {
+	top: 10px;
+	left: 18px;
+	width: 277px;
+	height: 34px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#buzz_cut_______________________r200 {
+	top: 51px;
+	left: 17px;
+	width: 275px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#dreadlock_____________________r250 {
+	top: 92px;
+	left: 17px;
+	width: 278px;
+	height: 52px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+#frame_5 {
+	top: 2585px;
+	left: 104px;
+	width: 280px;
+	height: 204px;
+}
+
+#box_braids__________________r580 {
+	top: 0px;
+	left: 16px;
+	width: 284px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#twist___________________________r550 {
+	top: 39px;
+	left: 16px;
+	width: 284px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#knotless_braids___________r600 {
+	top: 78px;
+	left: 16px;
+	width: 284px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#triangle_box_braid_______r650 {
+	top: 117px;
+	left: 8px;
+	width: 292px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+#frame_6 {
+	top: 1837px;
+	left: 990px;
+	width: 305px;
+	height: 194px;
+}
+
+#traditional_locs_______________r250 {
+	top: 7px;
+	left: 15px;
+	width: 295px;
+	height: 34px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#freeform_locs__________________r300 {
+	top: 41px;
+	left: 15px;
+	width: 293px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#sisterlocks______________________r350 {
+	top: 76px;
+	left: 17px;
+	width: 302px;
+	height: 52px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+#frame_7 {
+	top: 1837px;
+	left: 523px;
+	width: 304px;
+	height: 194px;
+}
+#frame_2 {
+	top: 0px;
+	left: 2px;
+	width: 302px;
+	height: 194px;
+}
+
+#straight_back______________r160 {
+	top: 10px;
+	left: 18px;
+	width: 277px;
+	height: 34px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#beaded_cornrows________r200 {
+	top: 51px;
+	left: 17px;
+	width: 275px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#cornrow_bun________________r250 {
+	top: 92px;
+	left: 17px;
+	width: 278px;
+	height: 52px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+#frame_8 {
+	top: 1843px;
+	left: 104px;
+	width: 264px;
+	height: 194px;
+}
+
+#box_braids__________________r580_ek1 {
+	top: 0px;
+	left: 16px;
+	width: 284px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#twist___________________________r550_ek1 {
+	top: 39px;
+	left: 16px;
+	width: 284px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+
+#knotless_braids___________r600_ek1 {
+	top: 78px;
+	left: 16px;
+	width: 284px;
+	height: 35px;
+	overflow: hidden;
+	font-family: Inknut Antiqua;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	color:#000000;
+}
+
+footer {
+    background: #ac5283;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer .social-links a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+footer .footer-info {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer .footer-info p {
+    margin: 5px 0;
+}
+
+footer .footer-pages ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-pages li,
+footer .footer-address p {
+    text-align: left;
+}
+
+footer .footer-address {
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    header h1,
+    header nav {
+        float: none;
+        text-align: center;
+    }
+
+    .service {
+        display: block;
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    footer .footer-info {
+        flex-direction: column;
+    }
+}
+
+
+
+
+
+
+/* Add your custom CSS here */
