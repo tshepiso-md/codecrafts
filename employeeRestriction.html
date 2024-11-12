@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .header {
+            background-color: #f8d7da;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header .admin {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-weight: bold;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            position: fixed;
+        }
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 10px 0;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+        .containers {
+            margin-left: 420px;
+            margin-top: 240px;
+            text-align: center;
+            border: 1px solid #f5c6cb;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f5c6cb;
+            color: #721c24;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: calc(100% - 640px); /* Adjusts for sidebar width and padding */
+        }
+        h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+        p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="title">Crown and Polish Beauty Studio</div>
+    <div class="admin">Admin</div>
+</div>
+
+<div class="sidebar">
+    <a href="employeeRestriction.html">Manage Accounts</a>
+    <a href="employeesPage.html">Employees</a>
+    <a href="employeeRestriction.html">Bookings</a>
+    <a href="employeeRestriction.html">Finances</a>
+    <a href="employeeRestriction.html">Stock Taking</a>
+</div>
+
+<div class="containers">
+    <h1>Access Denied</h1>
+    <p>You do not have permission to access this page.</p>
+</div>
+
+</body>
+</html>

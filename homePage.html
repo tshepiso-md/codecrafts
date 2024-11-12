@@ -5,39 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crown and Beauty</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="contact.css">
+    <link rel="icon" href="favicon.ico">
+   
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Crown and polish beauty studio</h1>
-            <nav>
-                <ul>
-                    <li><a href="#homepage">Home</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#" onclick="navigateToBooking()">Bookings</a></li>
-                    <li><a href="#">Gallery</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><button class="login-button" onclick="navigateToLogin()">Login</button></li>
-                </ul>
-            </nav>
+            <div class="header-content">
+                <h1>Crown &amp; Polish Beauty Studio</h1>
+                <nav>
+                    <ul>
+                        <li><a href="homePage.html">Home</a></li>
+                        <li><a href="servicesPage.html">Services</a></li>
+                        <li><a href="bookings.html">Bookings</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><span id="usernameDisplay">Guest</span></li>
+                        <li><button id="loginBtn" class="login-button" >Login</button></li> <!-- place holder-->
+                        <li><button id="logoutBtn" class="logout-button" onclick="logout()">Logout</button></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
-
-    <script>
-           function navigateToBooking() {
-            window.location.href = 'bookings.html';
-        }
-        function navigateToLogin() {
-            window.location.href = 'login.html';
-        }
-    </script>
+   
     <section class="hero">
         <div class="container">
             <img src="nav-bar.jfif" width="450" height="250" style="float:right;" >
             <h2>Beauty and Spa Wellness</h2>
             <p>Awaken Your Glow: Let Our Experts Enhance Your Natural Beauty™</p>
-            <button class="appointment-button" onclick="navigateToBooking()">Book an appointment</button>
+            <button onclick="window.location.href='bookings.html'" class="appointment-button">Book an appointment</button>
+
             
         </div>
     </section>
@@ -48,25 +46,25 @@
                 <img src="nail-icon.jfif" alt="Nail Care">
                 <h3>Nail Care</h3>
                 <p>Treat your hands and feet to the ultimate pampering experience with our range of manicure and pedicure services.</p>
-                <a href="#">FIND OUT MORE</a>
+                <a href="servicesPage.html" style="color: blue;">FIND OUT MORE</a>
             </div>
             <div class="service">
                 <img src="hair-icon.jfif" alt="Facial Massage">
                 <h3>Facial Massage</h3>
                 <p>Experience pure bliss with our luxurious facial massage treatments.</p>
-                <a href="#">FIND OUT MORE</a>
+                <a href="servicesPage.html" style="color: blue;">FIND OUT MORE</a>
             </div>
             <div class="service">
                 <img src="hairhair-icon.png" alt="Hair">
                 <h3>Hair</h3>
                 <p>Discover the perfect hairstyle to express your individuality and enhance your natural beauty.</p>
-                <a href="#">FIND OUT MORE</a>
+                <a href="servicesPage.html" style="color: blue;">FIND OUT MORE</a>
             </div>
             <div class="service">
                 <img src="massage-icon.JFIF" alt="Full-body Massage">
                 <h3>Full-body Massage</h3>
                 <p>Treat yourself to the ultimate relaxation experience with our indulgent full body massage treatments.</p>
-                <a href="#">FIND OUT MORE</a>
+                <a href="servicesPage.html" style="color: blue;">FIND OUT MORE</a>
             </div>
         </div>
     </section>
@@ -114,6 +112,24 @@
         </div>
     </section>
 
+ <!-- Popup HTML -->
+<div id="popup" class="popup" style="display: none;">
+    <div class="popup-content">
+        <span class="close-btn">&times;</span>
+
+        <iframe id="loginIframe" src="login.html" width="600px" height="750px" style="border:none;"></iframe>
+        
+    </div>
+</div>
+
+<!-- Second Popup -->
+<div id="popup2" class="popup" style="display: none;">
+    <div class="popup-content">
+        <p>Sign-in successful!</p>
+        <button id="okBtn">OK</button>
+    </div>
+</div>
+
     <footer>
         <div class="container">
             <div class="social-links">
@@ -132,9 +148,9 @@
                 <div class="footer-pages">
                     <p>Pages</p>
                     <ul>
-                        <li><a href="#" >Services</a></li>
-                        <li><a href="#" onclick="navigateToBooking()">Bookings</a></li>
-                        <li><a href="#" >Gallery</a></li>
+                        <li><a href="servicesPage.html" >Services</a></li>
+                        <li><a href="bookings.html" >Bookings</a></li>
+                        <li><a href="gallery.html" >Gallery</a></li>
                     </ul>
                 </div>
                 <div class="footer-address">
@@ -145,4 +161,134 @@
         </div>
     </footer>
 </body>
+
+<script type="module" >
+
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+    import { getFirestore, collection, setDoc, getDoc, deleteDoc, addDoc, doc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+   
+ 
+    const firebaseConfig = {
+        apiKey: "AIzaSyC6OJmdKspro9Nb1FxwMH2PtN7WAJnKaUM",
+        authDomain: "code-crafts-f5107.firebaseapp.com",
+        projectId: "code-crafts-f5107",
+        storageBucket: "code-crafts-f5107.appspot.com",
+        messagingSenderId: "171510387289",
+        appId: "1:171510387289:web:4234c82d229a80bb5d9748",
+        measurementId: "G-Y9SCZHRVYZ"
+      };
+    
+   
+    const app = initializeApp(firebaseConfig);
+    
+   
+    const auth = getAuth();
+   
+    const db = getFirestore(app); 
+   
+
+
+  // Show the sign-in popup
+  document.getElementById('loginBtn').addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'block';
+    });
+
+    // Close the sign-in popup
+    document.querySelector('.close-btn').addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+    });
+
+    
+    window.addEventListener('message', function(event) {
+        if (event.data === 'signInSuccess') {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('popup2').style.display = 'flex';
+        }
+    });
+
+  
+    document.getElementById('okBtn').addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('popup2').style.display = 'none';
+    });
+
+  // ouside click close popup
+    window.addEventListener('click', function(event) {
+        const popup = document.getElementById('popup');
+        const popup2 = document.getElementById('popup2');
+        if (event.target === popup || event.target === popup2) {
+            popup.style.display = 'none';
+            popup2.style.display = 'none';
+        }
+    });
+
+    
+// Observe user state changes
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in
+        const userDocRef = doc(db, 'users', user.uid);
+        getDoc(userDocRef)
+            .then(docSnapshot => {
+                if (docSnapshot.exists()) {
+                    const FirstName = docSnapshot.data().FirstName;
+                    document.getElementById('usernameDisplay').textContent = FirstName;
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching user data: ", error);
+            });
+
+        document.getElementById('loginBtn').style.display = 'none';    // Hide login button
+        document.getElementById('logoutBtn').style.display = 'inline-block'; // Show logout button
+    } else {
+        // User is signed out
+        document.getElementById('usernameDisplay').textContent = 'Guest';
+        document.getElementById('loginBtn').style.display = 'inline-block';  // Show login button
+        document.getElementById('logoutBtn').style.display = 'none';         // Hide logout button
+    }
+});
+
+
+function logout() {
+    signOut(auth).catch((error) => {
+        console.error('Error during logout:', error);
+        alert('Failed to log out. Please try again.');
+    });
+}
+
+// Make logout globally accessible
+window.logout = logout;
+
+function displayUsername() { 
+        onAuthStateChanged(auth, user => {
+            if (user) {
+              
+                const userDocRef = doc(db, 'users', user.uid); 
+                getDoc(userDocRef)
+                    .then(docSnapshot => {
+                        if (docSnapshot.exists()) {
+                            const FirstName = docSnapshot.data().FirstName;
+                            document.getElementById('usernameDisplay').textContent = FirstName;
+                        } else {
+                            document.getElementById('usernameDisplay').textContent = 'User not found';
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching user data: ", error);
+                        document.getElementById('usernameDisplay').textContent = 'Error loading username';
+                    });
+            } else {
+              
+                document.getElementById('usernameDisplay').textContent = 'Guest';
+            }
+        });
+    }
+
+    
+    displayUsername();
+
+</script>
 </html>

@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+   
     <title>Sign Up Page</title>
-    <link rel="stylesheet" href="sign-in.css">
 </head>
 <body>
     <div class="container">
@@ -14,39 +17,124 @@
             </div>
         </div>
         <div class="right-side">
-            <div class="signup-form">
+            <div class="login-form">
                 <h2>Sign up</h2>
                 <p>Log in with one of the following options</p>
-                <form action="#">
-                    <label for="name">name(first & last)</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="phone">phone number</label>
-                    <input type="tel" id="phone" name="phone" required>
-
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-
-                    <label for="username">username</label>
-                    <input type="text" id="username" name="username" required>
-
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-
-                    <button type="submit" onclick="navigateToHomepage()">LOG IN</button>
-                    <a href="#" class="admin-account" onclick="navigateToadmin()">log in as Admin</a>
-                    <a href="#" onclick="navigateToHomepage()">back to homepage </a>
+                <form id="signup-form">
+                    <div id="signUpMessage" class="messageDiv" style="display:none;"></div>
+                    <br/>
+                    <div class="input-group">
+                        <label for="fName">First Name</label>
+                        <input type="text" id="fName" placeholder="First Name" autocomplete="off" required>
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                        <label for="lName">Last Name</label>
+                        <input type="text" id="lName" placeholder="Last Name" autocomplete="off" required>
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                        <label for="rEmail">Email</label>
+                        <input type="email" id="rEmail" placeholder="Email" autocomplete="off" required>   
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                        <label for="rPassword">Password</label>
+                        <input type="password" id="rPassword" placeholder="Password" autocomplete="off" required>
+                    </div>
+                    <button type="submit" class="btn" id="submitSignUp">Sign Up</button>
+                   
+                    <p id="error-message" style="color: red;"></p>
+                    <p class="signup-text">Already have an account? <a href="login.html" id="signUpLink">Log in</a></p>
+                    <a href="emloyeeSignup.html" class="admin-account" id="adminLink">Admin Account</a>
                 </form>
-                <script>
-                    function navigateToHomepage() {
-                        window.location.href = 'homepage.html';
-                    }
-                    function navigateToadmin() {
-                        window.location.href = 'adnim.html';
-                    }
-                </script>
             </div>
         </div>
     </div>
 </body>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyC6OJmdKspro9Nb1FxwMH2PtN7WAJnKaUM",
+    authDomain: "code-crafts-f5107.firebaseapp.com",
+    projectId: "code-crafts-f5107",
+    storageBucket: "code-crafts-f5107.appspot.com",
+    messagingSenderId: "171510387289",
+    appId: "1:171510387289:web:4234c82d229a80bb5d9748",
+    measurementId: "G-Y9SCZHRVYZ"
+  };
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth();
+const database = getFirestore();
+const db = getFirestore(app);
+
+function showMessage(message, divId) {
+
+    var messageDiv = document.getElementById(divId);
+    
+    messageDiv.style.display = "block";
+    messageDiv.innerHTML = message;
+    messageDiv.style.opacity = 1;
+    
+    setTimeout(function () {
+        messageDiv.style.opacity = 0;
+    }, 5000);
+}
+
+const signUp = document.getElementById('submitSignUp');
+
+signUp?.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById('rEmail').value;
+    const password = document.getElementById('rPassword').value;
+    const firstName = document.getElementById('fName').value;
+    const lastName = document.getElementById('lName').value;
+
+    if (auth) {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            const userData = {
+                Email: email,
+                FirstName: firstName,
+                LastName: lastName
+            };
+
+            showMessage('Account Created Successfully', 'signUpMessage');
+
+            const docRef = doc(database, "users", user.uid);
+            await setDoc(docRef, userData);
+
+            const path = "some/path"; 
+            const query = { userId: user.uid }; 
+            const finalUrl = _getFinalTarget(auth, auth.config.apiHost, path, query);
+            
+            console.log(finalUrl);  
+
+            window.location.href = 'login.html';
+        } catch (error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            showMessage(errorMessage, 'signUpMessage');
+            
+            if (errorCode === 'auth/email-already-in-use') {
+                showMessage('Email Address Already Exists!', 'signUpMessage');
+            } else {
+                showMessage('Unable to create User', 'signUpMessage');
+            }
+        }
+    }
+});
+     window.navigateToEmployeeLogin = function() {
+        window.location.href = 'emloyeeSignup.html';
+    }
+</script>
 </html>

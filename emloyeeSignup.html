@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signup-container {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: linear-gradient(to right, #8e44ad, #c0392b);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: linear-gradient(to right, #8e44ad, #c0392b);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <h2>Employee Sign-Up</h2>
+        <form id="signup-form">
+            <div class="input-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" placeholder="Enter first name" required>
+            </div>
+            <div class="input-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" placeholder="Enter last name" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter password" required>
+            </div>
+            <button type="submit">Sign Up</button>
+            <a href="#" class="admin-account" id="adminLink" onclick="accessAdminPage()">Admin Account</a>
+
+                <br>
+                <a href="login.html" class="admin-account" id="adminLink" >Back to user login</a>
+        </form>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+      
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6OJmdKspro9Nb1FxwMH2PtN7WAJnKaUM",
+            authDomain: "code-crafts-f5107.firebaseapp.com",
+            projectId: "code-crafts-f5107",
+            storageBucket: "code-crafts-f5107.appspot.com",
+            messagingSenderId: "171510387289",
+            appId: "1:171510387289:web:4234c82d229a80bb5d9748",
+            measurementId: "G-Y9SCZHRVYZ"
+        };
+
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore(app);
+
+     
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+           
+                await setDoc(doc(db, "employees", user.uid), {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    uid: user.uid,
+                    status: "pending"
+                });
+
+                alert("Sign-up successful! Your account is pending admin approval.");
+            } catch (error) {
+                console.error("Error signing up: ", error);
+                alert("Error: " + error.message);
+            }
+        });
+
+    </script>
+    <script>
+        function accessAdminPage() {
+            const correctCode = "200204"; 
+            const userCode = prompt("Please enter the admin access code:");
+
+            if (userCode === correctCode) {
+                window.location.href = "adnim.html"; 
+            } else {
+                alert("Incorrect code. Access denied.");
+            }
+        }
+    </script>
+</body>
+</html>

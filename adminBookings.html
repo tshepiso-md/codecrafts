@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Bookings</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #f8d7da;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header .admin {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-weight: bold;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            position: fixed;
+        }
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 10px 0;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #969696;
+        }
+        .approve-button {
+            background-color: #2d9e47e0;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .reject-button {
+            background-color: #c03341;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <div class="title">Crown and Polish Beauty Studio</div>
+        <div class="admin">Admin</div>
+    </div>
+
+    <div class="sidebar">
+        <a href="manageAcc.html">Manage Accounts</a>
+        
+        <a href="adminBookings.html">Bookings</a>
+     
+    </div>
+
+    <div class="content">
+        <h1>Admin Bookings</h1>
+        <section>
+            <h2>Booking Sheet</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Username</th>
+                        <th>Service</th>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="bookings-container">
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";  
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+        import { getFirestore, collection, getDocs, deleteDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6OJmdKspro9Nb1FxwMH2PtN7WAJnKaUM",
+            authDomain: "code-crafts-f5107.firebaseapp.com",
+            projectId: "code-crafts-f5107",
+            storageBucket: "code-crafts-f5107.appspot.com",
+            messagingSenderId: "171510387289",
+            appId: "1:171510387289:web:4234c82d229a80bb5d9748",
+            measurementId: "G-Y9SCZHRVYZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function fetchappointments() {
+            const appointmentCollection = collection(db, "appointments");
+            const appointmentSnapshot = await getDocs(appointmentCollection);
+            const appointmentsList = appointmentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            displayappointments(appointmentsList);
+        }
+
+        function displayappointments(appointments) {
+    const appointmentsTableBody = document.getElementById("bookings-container");
+    appointmentsTableBody.innerHTML = "";
+
+    appointments.forEach((appointment, index) => {
+        const row = document.createElement("tr");
+
+        const assignedStaff = appointment.staffAssigned 
+            ? Object.entries(appointment.staffAssigned)
+                .filter(([service, staff]) => staff !== null)
+                .map(([service, staff]) => `${service.charAt(0).toUpperCase() + service.slice(1)} by: ${staff}`)
+                .join(', ')
+            : 'None';
+
+        // Check if services is an array before calling join
+        const services = Array.isArray(appointment.services)
+            ? appointment.services.join(', ')
+            : appointment.services || 'N/A';
+
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${appointment.username || 'N/A'}</td>
+            <td>${services}</td>
+            <td>${assignedStaff}</td>
+            <td>${appointment.date || 'N/A'}</td>
+            <td>${appointment.time || 'N/A'}</td>
+            <td>${appointment.status || 'Pending'}</td>
+            <td>
+                <button class="approve-button" onclick="approveAppointment('${appointment.id}')">Approve</button>
+                <button class="reject-button" onclick="rejectAppointment('${appointment.id}')">Reject</button>
+                <button onclick="deleteAppointment('${appointment.id}')">Delete</button>
+            </td>
+        `;
+
+        appointmentsTableBody.appendChild(row);
+    });
+}
+        // Move these functions outside of displayappointments
+        window.approveAppointment = async function(appointmentId) {
+            const appointmentRef = doc(db, "appointments", appointmentId);
+            await updateDoc(appointmentRef, { status: "approved" });
+            alert("Appointment approved!");
+            fetchappointments();
+        };
+
+        window.rejectAppointment = async function(appointmentId) {
+            const appointmentRef = doc(db, "appointments", appointmentId);
+            await updateDoc(appointmentRef, { status: "rejected" });
+            alert("Appointment rejected!");
+            fetchappointments(); 
+        };
+
+        window.deleteAppointment = async function(appointmentId) {
+            if (confirm("Are you sure you want to delete this appointment?")) {
+                const appointmentRef = doc(db, "appointments", appointmentId); 
+                try {
+                    await deleteDoc(appointmentRef);
+                    alert("Appointment deleted successfully!");
+                    fetchappointments(); 
+                } catch (error) {
+                    console.error("Error deleting appointment: ", error);
+                }
+            }
+        };
+
+        window.onload = fetchappointments;
+
+    </script>
+</body>
+</html>
