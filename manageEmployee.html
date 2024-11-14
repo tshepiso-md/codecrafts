@@ -126,26 +126,24 @@ button:hover {
     <div class="content">
         <h1>Manage Accounts</h1>
         
-        <!-- User Accounts Section -->
+        <!-- Employee Accounts Section -->
         <section>
-            <h2>current User Accounts</h2>
+            <h2>Employee Accounts</h2>
             <table>
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Username</th>
                         <th>Email</th>
+                        <th>Status</th>
                         <th>Actions</th>
+                        
                     </tr>
                 </thead>
-                <tbody id="userTableBody">
-                    <!-- User data will be inserted here -->
+                <tbody id="employeeTableBody">
                 </tbody>
             </table>
         </section>
-        
- 
     </div>
 
     <script type="module">
@@ -165,77 +163,70 @@ button:hover {
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        async function fetchUsers() {
-            const userCollection = collection(db, "users");
-            const userSnapshot = await getDocs(userCollection);
-            const userList = userSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            displayUsers(userList);
+
+        async function fetchEmployees() {
+            const employeeCollection = collection(db, "employees"); 
+            const employeeSnapshot = await getDocs(employeeCollection);
+            const employeeList = employeeSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            displayEmployees(employeeList);
         }
 
-        function displayUsers(users) {
-            const userTableBody = document.getElementById("userTableBody");
-            userTableBody.innerHTML = ""; 
+        function displayEmployees(employees) {
+            const employeeTableBody = document.getElementById("employeeTableBody");
+            employeeTableBody.innerHTML = ""; 
 
-            users.forEach((user, index) => {
+            employees.forEach((employee, index) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
                     <td>${index + 1}</td>
-                    <td>${user.FirstName || 'N/A'}</td>
-                    <td>${user.LastName || 'N/A'}</td>
-                    <td>${user.Email || 'N/A'}</td>
-                    <td><button onclick="deleteUser('${user.id}')">Delete</button></td>
+                    <td>${employee.firstName || 'N/A'}</td>
+                    <td>${employee.email || 'N/A'}</td>
+                    <td>${employee.status || 'N/A'}</td>
+                    <td>
+                        <button class="approve-button" onclick="approveEmployee('${employee.id}')">Approve</button>
+                        <button class="reject-button" onclick="rejectEmployee('${employee.id}')">Reject</button>
+                        <button onclick="deleteEmployee('${employee.id}')">Delete</button>
+                    </td>
+                    
                 `;
-                userTableBody.appendChild(row);
+                employeeTableBody.appendChild(row);
             });
         }
-
-
-   window.addUser = async function() {
-            const newUser = {
-                FirstName: "New",
-                LastName: "User",
-                Email: "newuser@example.com"
-            };
-
-            try {
-                await addDoc(collection(db, "users"), newUser);
-                alert("User added!");
-                fetchUsers(); 
-            } catch (error) {
-                console.error("Error adding user: ", error);
-            }
+  
+          window.approveEmployee = async function(employeeId) {
+            const employeeRef = doc(db, "employees", employeeId);
+            await updateDoc(employeeRef, { status: "approved" });
+            alert("Employee approved!");
+            fetchEmployees(); 
         };
 
-
-
-
-
-
-
-
-
-        window.deleteUser = async function(userId) {
-            if (confirm("Are you sure you want to delete this user?")) {
-                const userRef = doc(db, "users", userId); 
-                try {
-                    await deleteDoc(userRef); 
-                    alert("User deleted successfully!");
-                    fetchUsers(); 
-                } catch (error) {
-                    console.error("Error deleting user: ", error);
-                }
-            }
+        window.rejectEmployee = async function(employeeId) {
+            const employeeRef = doc(db, "employees", employeeId);
+            await updateDoc(employeeRef, { status: "rejected" });
+            alert("Employee rejected!");
+            fetchEmployees(); 
         };
 
-        window.onload = fetchUsers;
+        
 
-       
+            window.deleteEmployee = async function(employeeId) {
+    if (confirm("Are you sure you want to delete this employee?")) {
+        const userRef = doc(db, "employees", employeeId); 
+        try {
+            await deleteDoc(userRef); 
+            alert("Employee deleted successfully!");
+            fetchEmployees();
+        } catch (error) {
+            console.error("Error deleting employee: ", error);
+        }
+    }
+};
   
 
-        window.onload = fetchUsers;
+        window.onload = fetchEmployees;
         window.onload = () => {
-            fetchUsers();
-          
+           
+            fetchEmployees();
         };
     </script>
 </body>

@@ -89,33 +89,11 @@ body {
                     <label><input type="checkbox" name="services" value="full-body-massage" onchange="toggleStaffOptions()"> Full Body Massage</label>
 
                    
-                    <div id="nails-staff" class="service-options" style="display: none;">
-                        <h4>Nails done by?</h4>
-                        <label><input type="radio" name="nails" value="Sethabile"> Sethabile</label>
-                        <label><input type="radio" name="nails" value="Kamogelo"> Kamogelo</label>
-                        <label><input type="radio" name="nails" value="anyone"> Anyone available</label>
-                    </div>
-
-                    <div id="hair-staff" class="service-options" style="display: none;">
-                        <h4>Hair done by?</h4>
-                        <label><input type="radio" name="hair" value="Buhle"> Buhle</label>
-                        <label><input type="radio" name="hair" value="Nkosi"> Nkosi</label>
-                        <label><input type="radio" name="hair" value="anyone"> Anyone available</label>
-                    </div>
-
-                    <div id="facials-staff" class="service-options" style="display: none;">
-                        <h4>Facials done by?</h4>
-                        <label><input type="radio" name="facials" value="lebogang"> Lebogang</label>
-                        <label><input type="radio" name="facials" value="Musa"> Musa</label>
-                        <label><input type="radio" name="facials" value="anyone"> Anyone available</label>
-                    </div>
-
-                    <div id="massage-staff" class="service-options" style="display: none;">
-                        <h4>Massage done by?</h4>
-                        <label><input type="radio" name="massage" value="Khosi"> Khosi</label>
-                        <label><input type="radio" name="massage" value="Lydia"> Lydia</label>
-                        <label><input type="radio" name="massage" value="anyone"> Anyone available</label>
-                    </div>
+                    <div id="nails-staff" class="service-options" style="display: none;"></div>
+                    <div id="hair-staff" class="service-options" style="display: none;"></div>
+                    <div id="facials-staff" class="service-options" style="display: none;"></div>
+                    <div id="full-body-massage-staff" class="service-options" style="display: none;"></div>
+                    
                 </form>
             </div>
        
@@ -224,21 +202,28 @@ body {
         const db = getFirestore(app);
 
  
-      document.addEventListener("DOMContentLoaded", function () {
-        function toggleStaffOptions() {
-            loadEmployees();
-            const selectedServices = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(input => input.value);
-            document.getElementById('nails-staff').style.display = selectedServices.includes('nails') ? 'block' : 'none';
-            document.getElementById('hair-staff').style.display = selectedServices.includes('hair') ? 'block' : 'none';
-            document.getElementById('facials-staff').style.display = selectedServices.includes('facials') ? 'block' : 'none';
-            document.getElementById('massage-staff').style.display = selectedServices.includes('full-body-massage') ? 'block' : 'none';
+        document.addEventListener("DOMContentLoaded", function () {
+    // Listen for checkbox changes and dynamically show staff options
+    function toggleStaffOptions() {
+        const selectedServices = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(input => input.value);
 
-        }
-
-        document.querySelectorAll('input[name="services"]').forEach(checkbox => {
-            checkbox.addEventListener("change", toggleStaffOptions);
+        // Clear previous staff options
+        selectedServices.forEach(service => {
+            loadEmployeesByService(service); // Load employees specific to each selected service
         });
+
+        // Toggle visibility based on selected services
+        document.getElementById('nails-staff').style.display = selectedServices.includes('nails') ? 'block' : 'none';
+        document.getElementById('hair-staff').style.display = selectedServices.includes('hair') ? 'block' : 'none';
+        document.getElementById('facials-staff').style.display = selectedServices.includes('facials') ? 'block' : 'none';
+        document.getElementById('full-body-massage-staff').style.display = selectedServices.includes('full-body-massage') ? 'block' : 'none';
+    }
+
+    // Bind checkbox change events
+    document.querySelectorAll('input[name="services"]').forEach(checkbox => {
+        checkbox.addEventListener("change", toggleStaffOptions);
     });
+});
 
         function navigateToSignUp() {
             window.location.href = 'signup.html';
@@ -263,20 +248,20 @@ body {
     }
 
     const bookingData = {
-        services,
-        date,
-        time,
-        username,
-        staffAssigned: {
-            nails: document.querySelector('input[name="nails"]:checked')?.value || null,
-            hair: document.querySelector('input[name="hair"]:checked')?.value || null,
-            facials: document.querySelector('input[name="facials"]:checked')?.value || null,
-            massage: document.querySelector('input[name="massage"]:checked')?.value || null
-        },
-        status: 'pending',
-        createdAt: new Date(),
-        updatedAt: new Date()
-    };
+    services,
+    date,
+    time,
+    username,
+    staffAssigned: {
+        nails: document.querySelector('input[name="nails"]:checked')?.value || null,
+        hair: document.querySelector('input[name="hair"]:checked')?.value || null,
+        facials: document.querySelector('input[name="facials"]:checked')?.value || null,
+        massage: document.querySelector('input[name="full-body-massage"]:checked')?.value || null, // Fixed here
+    },
+    status: 'pending',
+    createdAt: new Date(),
+    updatedAt: new Date()
+};
 
     try {
         await addDoc(collection(db, "appointments"), bookingData);
@@ -387,40 +372,32 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('search-username').addEventListener('input', searchByUsername);
 });
 
-async function loadEmployees() {
+// Fetch employees based on the selected service from Firestore
+async function loadEmployeesByService(serviceType) {
     const employeesRef = collection(db, 'employees');
-    const querySnapshot = await getDocs(employeesRef);
-    const employeeMap = {}; // Store employees by service type
+    const q = query(employeesRef, where("services", "array-contains", serviceType)); // Assuming `services` is an array field in Firestore
+    const querySnapshot = await getDocs(q);
 
+    const employees = [];
     querySnapshot.forEach(doc => {
         const employee = doc.data();
-        const { service, firstName, lastName } = employee;
-
-        if (!employeeMap[service]) {
-            employeeMap[service] = [];
-        }
-        employeeMap[service].push({ id: doc.id, name: `${firstName} ${lastName}` });
+        employees.push(`${employee.firstName} ${employee.lastName}`);
     });
 
-    populateEmployeeOptions(employeeMap);
+    populateEmployeeOptions(serviceType, employees);
 }
 
-function populateEmployeeOptions(employeeMap) {
-    const services = ['nails', 'hair', 'facials', 'massage'];
-
-    services.forEach(service => {
-        const serviceStaffDiv = document.getElementById(`${service}-staff`);
-        if (serviceStaffDiv) {
-            serviceStaffDiv.innerHTML = `
-                <h4>${service.charAt(0).toUpperCase() + service.slice(1)} done by?</h4>
-                ${employeeMap[service]?.map(emp => `<label><input type="radio" name="${service}" value="${emp.name}"> ${emp.name}</label>`).join('') || '<p>No employees available</p>'}
-                <label><input type="radio" name="${service}" value="anyone"> Anyone available</label>
-            `;
-        }
-    });
+// Populate the staff options dynamically in the form
+function populateEmployeeOptions(service, employees) {
+    const serviceStaffDiv = document.getElementById(`${service}-staff`);
+    if (serviceStaffDiv) {
+        serviceStaffDiv.innerHTML = `
+            <h4>${service.charAt(0).toUpperCase() + service.slice(1)} done by?</h4>
+            ${employees.map(emp => `<label><input type="radio" name="${service}" value="${emp}"> ${emp}</label>`).join('') || '<p>No employees available</p>'}
+            <label><input type="radio" name="${service}" value="anyone"> Anyone available</label>
+        `;
+    }
 }
-
-
     </script>
 </body>
 </html>

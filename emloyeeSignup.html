@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Employee Sign-Up</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,7 +35,7 @@
             margin-bottom: 5px;
             font-weight: bold;
         }
-        input {
+        input, select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -76,19 +76,27 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" placeholder="Enter password" required>
             </div>
+            <div class="input-group">
+                <label for="services">Select Services</label>
+                <select id="services" multiple required>
+                    <option value="nails">Nails</option>
+                    <option value="hair">Hair</option>
+                    <option value="facials">Facials</option>
+                    <option value="full-body-massage">Massage</option>
+                </select>
+            </div>
             <button type="submit">Sign Up</button>
             <a href="#" class="admin-account" id="adminLink" onclick="accessAdminPage()">Admin Account</a>
-
-                <br>
-                <a href="login.html" class="admin-account" id="adminLink" >Back to user login</a>
+            <br>
+            <a href="login.html" class="admin-account" id="adminLink">Back to user login</a>
         </form>
     </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
         import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-      
         const firebaseConfig = {
             apiKey: "AIzaSyC6OJmdKspro9Nb1FxwMH2PtN7WAJnKaUM",
             authDomain: "code-crafts-f5107.firebaseapp.com",
@@ -99,31 +107,34 @@
             measurementId: "G-Y9SCZHRVYZ"
         };
 
-        
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
         const db = getFirestore(app);
 
-     
         document.getElementById('signup-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const firstName = document.getElementById('first-name').value;
             const lastName = document.getElementById('last-name').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            
+            // Capture selected services as an array
+            const selectedServices = Array.from(document.getElementById('services').selectedOptions)
+                                           .map(option => option.value);
 
             try {
-                
+                // Create user with email and password
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-           
+                // Save employee details including services to Firestore
                 await setDoc(doc(db, "employees", user.uid), {
                     firstName: firstName,
                     lastName: lastName,
                     email: email,
                     uid: user.uid,
-                    status: "pending"
+                    services: selectedServices,  // Save selected services as an array
+                    status: "pending"  // Status to be approved by admin
                 });
 
                 alert("Sign-up successful! Your account is pending admin approval.");
@@ -132,19 +143,20 @@
                 alert("Error: " + error.message);
             }
         });
-
     </script>
+
     <script>
         function accessAdminPage() {
             const correctCode = "200204"; 
             const userCode = prompt("Please enter the admin access code:");
 
             if (userCode === correctCode) {
-                window.location.href = "adnim.html"; 
+                window.location.href = "admin.html"; 
             } else {
                 alert("Incorrect code. Access denied.");
             }
         }
     </script>
+
 </body>
 </html>
