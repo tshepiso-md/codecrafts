@@ -262,10 +262,41 @@ footer {
     text-align: center;
 }
 
+.links { 
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+    color: blue;
+}
+
+.links p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.links a,
+.get-social .links a {
+    color: blue;
+    text-decoration: underline;
+}
+
+.links a:hover,
+.get-social .links a:hover {
+    color: rgb(0, 191, 255);
+    text-decoration: underline;
+}
+
+
+.links a:active,
+.get-social .links a:active {
+    color: purple;
+    text-decoration: underline;
+}
+
+
 footer .social-links a {
-    color: #fff;
+    color: rgb(0, 0, 189);
     margin: 0 10px;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 footer .footer-info {

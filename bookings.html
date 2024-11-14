@@ -6,6 +6,8 @@
     <title>Booking Form</title>
     <link rel="stylesheet" href="bookings.css">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <style>
         
 table {
@@ -39,6 +41,20 @@ th, td {
 body {
     padding-top: 1px; /* Adjust this value based on your header height */
 }
+.search-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the content (input and button) to the right */
+    margin-bottom: 20px;
+}
+
+.search-container input {
+    padding: 10px;
+    margin-right: 10px; /* Space between the input and the button */
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 250px; /* Adjust the width of the input field */
+}
     </style>
 </head>
 <body>
@@ -48,7 +64,7 @@ body {
             <h1>Crown &amp; Polish Beauty Studio</h1>
             <nav>
                 <ul>
-                    <li><a href="homePage.html">home</a></li>
+                    <li><a href="homePage.html">Home</a></li>
                     <li><a href="servicesPage.html">Services</a></li>
                     <li><a href="bookings.html">Bookings</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
@@ -133,6 +149,11 @@ body {
 
     <section>
         <h2>bookings made</h2>
+
+        <div class="search-container">
+            <input type="text" id="search-username" placeholder="Search by username">
+        </div>
+
         <table>
             <thead>
                 <tr>
@@ -150,6 +171,35 @@ body {
             </tbody>
         </table>
     </section>
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.instagram.com/crownandpolishbeauty?igsh=N3BzbWJ1dmt4c2I1">Instagram</a>
+                <a href="https://www.tiktok.com/@sharonmotsepe0?_t=8qxMDaRQF4o&_r=1">TikTok</a>
+                <a href="https://www.facebook.com/share/xo6aZJG7rPPtPp2g/">Facebook</a>
+            </div>
+            <div class="footer-info">
+                <ul>
+                    <li><p>&copy; Crown and Beauty </p></li>
+                    <li><p>designed and developed by codecrafts</p></li>
+             </ul>
+                <div class="footer-pages">
+                    <h4>Pages</h4>
+                    <ul>
+                        <li><a href="homePage.html">Home</a></li>
+                        <li><a href="servicesPage.html">Services</a></li>
+                        <li><a href="bookings.html">Bookings</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-address">
+                    <p>Address</p>
+                    <p>3 Waterford Pl, Kleve Hill Park<br>Sandton, Johannesburg<br>Gauteng <br>South Africa </p>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script type="module">
        
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";  
@@ -176,11 +226,13 @@ body {
  
       document.addEventListener("DOMContentLoaded", function () {
         function toggleStaffOptions() {
+            loadEmployees();
             const selectedServices = Array.from(document.querySelectorAll('input[name="services"]:checked')).map(input => input.value);
             document.getElementById('nails-staff').style.display = selectedServices.includes('nails') ? 'block' : 'none';
             document.getElementById('hair-staff').style.display = selectedServices.includes('hair') ? 'block' : 'none';
             document.getElementById('facials-staff').style.display = selectedServices.includes('facials') ? 'block' : 'none';
             document.getElementById('massage-staff').style.display = selectedServices.includes('full-body-massage') ? 'block' : 'none';
+
         }
 
         document.querySelectorAll('input[name="services"]').forEach(checkbox => {
@@ -255,9 +307,9 @@ async function fetchBookedAppointments(username) {
                 const bookingElement = document.createElement('tr');
 
                 const assignedStaff = Object.entries(bookingData.staffAssigned)
-                    .filter(([service, staff]) => staff !== null)
-                    .map(([service, staff]) => `${service.charAt(0).toUpperCase() + service.slice(1)} by: ${staff}`)
-                    .join(', ');
+    .filter(([service, staff]) => staff !== null)
+    .map(([service, staff]) => `${service.charAt(0).toUpperCase() + service.slice(1)} by: ${staff}`)
+    .join(', ');
 
                 bookingElement.innerHTML = `
                     <td>${doc.id}</td>
@@ -320,6 +372,55 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    function searchByUsername() {
+        const username = document.getElementById('search-username').value.trim();
+
+        if (username) {
+            fetchBookedAppointments(username);
+        } else {
+            alert("Please enter a username to search.");
+        }
+    }
+
+    document.getElementById('search-username').addEventListener('input', searchByUsername);
+});
+
+async function loadEmployees() {
+    const employeesRef = collection(db, 'employees');
+    const querySnapshot = await getDocs(employeesRef);
+    const employeeMap = {}; // Store employees by service type
+
+    querySnapshot.forEach(doc => {
+        const employee = doc.data();
+        const { service, firstName, lastName } = employee;
+
+        if (!employeeMap[service]) {
+            employeeMap[service] = [];
+        }
+        employeeMap[service].push({ id: doc.id, name: `${firstName} ${lastName}` });
+    });
+
+    populateEmployeeOptions(employeeMap);
+}
+
+function populateEmployeeOptions(employeeMap) {
+    const services = ['nails', 'hair', 'facials', 'massage'];
+
+    services.forEach(service => {
+        const serviceStaffDiv = document.getElementById(`${service}-staff`);
+        if (serviceStaffDiv) {
+            serviceStaffDiv.innerHTML = `
+                <h4>${service.charAt(0).toUpperCase() + service.slice(1)} done by?</h4>
+                ${employeeMap[service]?.map(emp => `<label><input type="radio" name="${service}" value="${emp.name}"> ${emp.name}</label>`).join('') || '<p>No employees available</p>'}
+                <label><input type="radio" name="${service}" value="anyone"> Anyone available</label>
+            `;
+        }
+    });
+}
+
+
     </script>
 </body>
 </html>
