@@ -102,7 +102,7 @@
     <div class="content">
         <h1>Admin Bookings</h1>
         <section>
-            <h2>Booking Sheet</h2>
+            <h2>Pending Appointments</h2>
             <table>
                 <thead>
                     <tr>
@@ -116,11 +116,65 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody id="bookings-container">
-                </tbody>
+                <tbody id="pending-container"></tbody>
+            </table>
+        </section>
+    
+        <section>
+            <h2>Approved Appointments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Username</th>
+                        <th>Service</th>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="approved-container"></tbody>
+            </table>
+        </section>
+    
+        <section>
+            <h2>Rejected Appointments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Username</th>
+                        <th>Service</th>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="rejected-container"></tbody>
+            </table>
+        </section>
+    
+        <section>
+            <h2>Canceled Appointments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Username</th>
+                        <th>Service</th>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="canceled-container"></tbody>
             </table>
         </section>
     </div>
+    
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";  
@@ -139,6 +193,7 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        
 
         async function fetchappointments() {
             const appointmentCollection = collection(db, "appointments");
@@ -146,6 +201,7 @@
             const appointmentsList = appointmentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             displayappointments(appointmentsList);
         }
+        
 
         function displayappointments(appointments) {
     const appointmentsTableBody = document.getElementById("bookings-container");
