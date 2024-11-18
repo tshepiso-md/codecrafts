@@ -52,8 +52,8 @@ body {
     margin-right: 10px; /* Space between the input and the button */
     font-size: 16px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 250px; /* Adjust the width of the input field */
+    border-radius: 40px;
+    width: 400px; /* Adjust the width of the input field */
 }
     </style>
 </head>
@@ -103,7 +103,7 @@ body {
                 <div class="date-time">
                     <input type="date" id="booking-date" required min="">
                     <div class="time-slots">
-                        <label><input type="radio" name="time" value="09:00 AM" required> 09:00 AM</label>
+                        <label><input type="radio" name="time" value="09:00 AM"> 09:00 AM</label>
                         <label><input type="radio" name="time" value="11:00 AM"> 11:00 AM</label>
                         <label><input type="radio" name="time" value="13:00 PM"> 13:00 PM</label>
                         <label><input type="radio" name="time" value="15:00 PM"> 15:00 PM</label>
@@ -398,6 +398,126 @@ function populateEmployeeOptions(service, employees) {
         `;
     }
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Store the initially selected employee and time slot
+    let initialEmployeeSelection = null;
+    let initialTimeSelection = null;
+
+    // Function to fetch booked employees for a selected date and time slot
+    async function fetchBookedEmployees(date, time) {
+        try {
+            const bookingsRef = collection(db, 'appointments');
+            const q = query(bookingsRef, where("date", "==", date), where("time", "==", time));
+            const querySnapshot = await getDocs(q);
+            
+            const bookedEmployees = [];
+
+            querySnapshot.forEach(doc => {
+                const bookingData = doc.data();
+                const staffAssigned = bookingData.staffAssigned;
+
+                // Collect employees already assigned for the selected time slot
+                for (let service in staffAssigned) {
+                    if (staffAssigned[service]) {
+                        bookedEmployees.push(staffAssigned[service]);
+                    }
+                }
+            });
+
+            return bookedEmployees; // Return array of booked employees for the selected date and time
+        } catch (error) {
+            console.error("Error fetching booked employees: ", error);
+            alert("Error fetching booked employees. Please try again.");
+            return [];
+        }
+    }
+
+    // Function to update available employees based on booked appointments
+    async function updateAvailableEmployees() {
+        const selectedDate = document.getElementById("booking-date").value;
+        const selectedTime = document.querySelector('input[name="time"]:checked')?.value;
+
+        if (!selectedDate || !selectedTime) return;
+
+        // Fetch booked employees for the selected date and time
+        const bookedEmployees = await fetchBookedEmployees(selectedDate, selectedTime);
+
+        // Disable employees who are already booked for the selected time slot
+        const services = ["nails", "hair", "facials", "full-body-massage"];
+        let selectedEmployeeIsBooked = false;  // Track if the selected employee is booked
+
+        services.forEach(service => {
+            const serviceStaffDiv = document.getElementById(`${service}-staff`);
+            if (serviceStaffDiv) {
+                const employeeRadios = serviceStaffDiv.querySelectorAll('input[type="radio"]');
+                employeeRadios.forEach(radio => {
+                    if (bookedEmployees.includes(radio.value)) {
+                        radio.disabled = true; // Disable the employee who is already booked
+                        radio.parentElement.style.color = "gray"; // Optionally, style the disabled employees
+                    } else {
+                        radio.disabled = false; // Enable available employees
+                        radio.parentElement.style.color = "black"; // Reset color for available employees
+                    }
+
+                    // Check if the currently selected employee is booked
+                    if (radio.checked && bookedEmployees.includes(radio.value)) {
+                        selectedEmployeeIsBooked = true;
+                    }
+                });
+            }
+        });
+
+        // If the selected employee is booked, show a message to the user
+        if (selectedEmployeeIsBooked) {
+            alert(`The selected employee is already booked for the selected time. Please choose another time or available employee.`);
+        }
+    }
+
+    // Event listener to update available employees when date or time changes
+    document.getElementById("booking-date").addEventListener("change", updateAvailableEmployees);
+    document.querySelectorAll('input[name="time"]').forEach(input => {
+        input.addEventListener("change", updateAvailableEmployees);
+    });
+
+    // Initialize available employees on page load (if a date and time are already selected)
+    updateAvailableEmployees();
+
+    // Track initial selections for validation
+    const employeeRadios = document.querySelectorAll('input[name="employee"]');
+    employeeRadios.forEach(radio => {
+        if (radio.checked) {
+            initialEmployeeSelection = radio.value;
+        }
+    });
+
+    const timeRadios = document.querySelectorAll('input[name="time"]');
+    timeRadios.forEach(radio => {
+        if (radio.checked) {
+            initialTimeSelection = radio.value;
+        }
+    });
+
+    // Handle form submission (or booking button click)
+    document.getElementById("book").addEventListener("click", function(event) {
+        const selectedEmployee = document.querySelector('input[name="employee"]:checked')?.value;
+        const selectedTime = document.querySelector('input[name="time"]:checked')?.value;
+
+        // Prevent submission if the employee or time hasn't been changed
+        if (selectedEmployee === initialEmployeeSelection && selectedTime === initialTimeSelection) {
+            event.preventDefault(); // Prevent form submission or booking
+            alert("Please select a different time slot or employee before booking.");
+        } else {
+            // Proceed with the booking (can add further logic for submitting the form or saving the booking)
+            alert("Booking successful!"); // Example, replace with actual booking logic
+        }
+    });
+});
+
+
+
     </script>
 </body>
 </html>
