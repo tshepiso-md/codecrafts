@@ -1,0 +1,28 @@
+name: main CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all branches and history
+
+      # Debug Git
+      - name: Debug Git
+        run: |
+          git branch -r
+          git fetch origin
+          git checkout webAdminBranch
+
+      # List files
+      - name: List files
+        run: ls -la
