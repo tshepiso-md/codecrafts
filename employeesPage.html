@@ -38,8 +38,8 @@
     <div class="header">
         <h1>Welcome, <span id="employeeName"></span></h1>
     </div>
-    <button onclick="window.location.href='employeeLogin.html'">BACK</button>
-   
+    <button class="admin-account" id="adminLink" onclick="window.location.href='employeeLogin.html';">BACK</button>
+
     <h2>Your Appointments</h2>
     <table>
         <thead>
@@ -73,75 +73,52 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        
+        // Retrieve employee details from session storage
+        const firstName = sessionStorage.getItem("employeeFirstName");
+        const lastName = sessionStorage.getItem("employeeLastName");
+        const employeeUID = sessionStorage.getItem("employeeUID");
+        const employeeFullName = `${firstName} ${lastName}`;
 
-     
-// Before attempting to use sessionStorage data, log it to confirm that it's available
-console.log("SessionStorage before access:");
-console.log("First Name: ", sessionStorage.getItem("firstName"));
-console.log("Last Name: ", sessionStorage.getItem("lastName"));
-console.log("Employee UID: ", sessionStorage.getItem("employeeUID"));
+        // Display employee's name
+        document.getElementById("employeeName").textContent = employeeFullName;
 
-// Retrieve employee details from sessionStorage
-const firstName = sessionStorage.getItem("firstName");
-const lastName = sessionStorage.getItem("lastName");
-const employeeUID = sessionStorage.getItem("employeeUID");
+        // Fetch appointments from Firestore
+        async function fetchAppointments() {
+            try {
+                const appointmentsRef = collection(db, "appointments");
+                // Query by staffAssigned name
+                const q = query(appointmentsRef, where("staffAssigned", "==", employeeFullName));
 
-// Log to verify correct data retrieval
-console.log("First Name:", firstName);
-console.log("Last Name:", lastName);
-console.log("Employee UID:", employeeUID);
+                const querySnapshot = await getDocs(q);
+                const tableBody = document.getElementById("appointmentsTable");
 
-// If the data is present, proceed with constructing the full name
-if (firstName && lastName) {
-    const employeeFullName = `${firstName} ${lastName}`;
-    console.log("Employee Full Name: ", employeeFullName);
-    document.getElementById("employeeName").textContent = employeeFullName;
-} else {
-    console.error("Error: First name or last name is missing from sessionStorage.");
-}
+                let index = 1;
 
-// Fetch appointments from Firestore
-async function fetchAppointments() {
-    try {
-        const appointmentsRef = collection(db, "appointments");
-        console.log("Querying appointments for: ", firstName, lastName);
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = `
+                        <tr>
+                            <td>${index++}</td>
+                            <td>${data.date}</td>
+                            <td>${data.time}</td>
+                            <td>${data.client}</td>
+                            <td>${data.service}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
 
-        const q = query(appointmentsRef, where("staffAssigned", "==", `${firstName} ${lastName}`));
-        const querySnapshot = await getDocs(q);
-        const tableBody = document.getElementById("appointmentsTable");
-
-        let index = 1;
-        console.log("Number of appointments found: ", querySnapshot.size);
-
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            console.log("Appointment Data: ", data);
-
-            const row = `
-                <tr>
-                    <td>${index++}</td>
-                    <td>${data.date}</td>
-                    <td>${data.time}</td>
-                    <td>${data.username}</td>
-                    <td>${data.service}</td>
-                </tr>
-            `;
-            tableBody.innerHTML += row;
-        });
-
-        if (index === 1) {
-            tableBody.innerHTML = `<tr><td colspan="5">No appointments found.</td></tr>`;
+                if (index === 1) {
+                    tableBody.innerHTML = `<tr><td colspan="5">No appointments found.</td></tr>`;
+                }
+            } catch (error) {
+                console.error("Error fetching appointments:", error);
+                alert("Could not load appointments.");
+            }
         }
-    } catch (error) {
-        console.error("Error fetching appointments:", error);
-        alert("Could not load appointments.");
-    }
-}
 
-// Fetch appointments on page load
-fetchAppointments();
-
+        // Fetch appointments on page load
+        fetchAppointments();
     </script>
 </body>
 </html>
