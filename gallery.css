@@ -1,23 +1,184 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffe4e1;
-   
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff5f8;  /* Soft light pink background */
+    color: #333;
+    line-height: 1.6;
 }
 
-.gallery {
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header */
+header {
+    background-color: #ffffff;  /* White background for the navigation bar */
+    color: #333;  /* Dark text for better contrast */
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
     text-align: center;
-    padding: 20px;
 }
 
-.gallery-grid {
+header nav {
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #333;  /* Dark text for links */
+    font-size: 1rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #e91e63;  /* Darker pink hover effect */
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(to right, #fbd5e0, #f5b3c1);  /* Soft gradient pink */
+    color: #fff;
+    padding: 80px 20px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+/* Gallery Section */
+.gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-    margin: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 30px;
+    margin-bottom: 40px;
 }
 
-.gallery-grid img {
-    width: 100%;
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;  /* White background for gallery cards */
     border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+    background-color: #f5b3c1;  /* Light pink background */
+    color: #fff;
+    padding: 40px 20px;
+    margin-top: 60px;
+}
+
+footer .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .social-links {
+    margin-bottom: 20px;
+}
+
+footer .social-links a {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+footer .social-links a:hover {
+    color: #e91e63;  /* Darker pink hover effect */
+}
+
+footer .footer-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-info ul li {
+    margin-bottom: 10px;
+}
+
+footer .footer-info ul li p {
+    font-size: 0.9rem;
+}
+
+footer .footer-pages ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-pages ul li {
+    margin-bottom: 10px;
+}
+
+footer .footer-address p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Button Style */
+button {
+    background-color: #e91e63;  /* Dark pink for buttons */
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #d81b60;  /* Slightly darker pink on hover */
+}

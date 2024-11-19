@@ -111,21 +111,17 @@
                 <h2>EMPLOYEE LOG IN</h2>
                 <p>Log in with one of the following options</p>
                 <form id="login-form">
-                   
                     <div id="signInMessage" class="messageDiv" style="display:none;"></div>
                     <div class="input-group">
-                        <i class="fas fa-envelope"></i>
                         <label for="email">Email</label>
                         <input type="email" id="email" placeholder="Email" required>
                     </div>
                     <br/>
                     <div class="input-group">
-                        <i class="fas fa-lock"></i>
                         <label for="password">Password</label>
                         <input type="password" id="password" placeholder="Password" required>
                     </div> 
-                    <button type="submit" onclick="window.location.href='employeeLogin.html'" class="btn" id="submitSignIn">Sign In</button>
-                    
+                    <button type="submit" class="btn" id="submitSignIn">Sign In</button>
                 </form>
                 <br>
                 <a href="#" class="admin-account" id="adminLink" onclick="showAdminModal()">MANAGEMENT</a>
@@ -135,64 +131,74 @@
             </div>
         </div>
     </div>
- <!-- Modal -->
- <div id="adminModal">
-    <div class="modal-content">
-        <h2>Admin Access</h2>
-        <label for="accessCode">Enter Access Code:</label>
-        <input type="password" id="accessCode" placeholder="Access Code">
-        <button onclick="accessAdminPage()">Submit</button>
-        <button onclick="closeAdminModal()">Cancel</button>
-    </div>
-</div>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-        import { getFirestore, collection, getDoc, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyC6OJmdKspro9Nb1FxwMH2PtN7WAJnKaUM",
-            authDomain: "code-crafts-f5107.firebaseapp.com",
-            projectId: "code-crafts-f5107",
-            storageBucket: "code-crafts-f5107.appspot.com",
-            messagingSenderId: "171510387289",
-            appId: "1:171510387289:web:4234c82d229a80bb5d9748",
-            measurementId: "G-Y9SCZHRVYZ"
-        };
+    <!-- Modal -->
+    <div id="adminModal">
+        <div class="modal-content">
+            <h2>Admin Access</h2>
+            <label for="accessCode">Enter Access Code:</label>
+            <input type="password" id="accessCode" placeholder="Access Code">
+            <button onclick="accessAdminPage()">Submit</button>
+            <button onclick="closeAdminModal()">Cancel</button>
+        </div>
+    </div>
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+    import { getFirestore, collection, setDoc, getDoc, deleteDoc, addDoc, doc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+   
+ 
+    const firebaseConfig = {
+        apiKey: "AIzaSyC6OJmdKspro9Nb1FxwMH2PtN7WAJnKaUM",
+        authDomain: "code-crafts-f5107.firebaseapp.com",
+        projectId: "code-crafts-f5107",
+        storageBucket: "code-crafts-f5107.appspot.com",
+        messagingSenderId: "171510387289",
+        appId: "1:171510387289:web:4234c82d229a80bb5d9748",
+        measurementId: "G-Y9SCZHRVYZ"
+      };
+    
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
         const db = getFirestore(app);
 
-document.getElementById("login-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+        document.getElementById("login-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-        const employeeRef = doc(db, "employees", user.uid);
-        const employeeSnap = await getDoc(employeeRef);
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
 
-        if (employeeSnap.exists()) {
-            const employeeData = employeeSnap.data();
-            
-            if (employeeData.status === "approved") {
-                window.location.href = "employeeDashboard.html";
-            } else {
-                alert("Your account is pending admin approval.");
+                const employeeRef = doc(db, "employees", user.uid);
+                const employeeSnap = await getDoc(employeeRef);
+
+                if (employeeSnap.exists()) {
+                    const employeeData = employeeSnap.data();
+                    
+                    if (employeeData.status === "approved") {
+                        // Save employee data in session storage
+                        sessionStorage.setItem("employeeFirstName", employeeData.firstName);
+                        sessionStorage.setItem("employeeLastName", employeeData.lastName);
+                        sessionStorage.setItem("employeeUID", user.uid);
+
+                        // Redirect to the employee dashboard
+                        window.location.href = "employeesPage.html";
+                    } else {
+                        alert("Your account is pending admin approval.");
+                    }
+                } else {
+                    console.log("No employee data found.");
+                }
+            } catch (error) {
+                console.error("Error logging in: ", error);
+                alert("Failed to log in: " + error.message);
             }
-        } else {
-            console.log("No employee data found.");
-        }
-    } catch (error) {
-        console.error("Error logging in: ", error);
-        alert("Failed to log in: " + error.message);
-    }
-});
+        });
+
     </script>
    <script>
 function showAdminModal() {

@@ -83,6 +83,37 @@
             padding: 5px 10px;
             cursor: pointer;
         }
+        .search-bar {
+    display: flex; /* Make it a flex container */
+    justify-content: flex-end; /* Align items to the right */
+    align-items: center; /* Center vertically */
+    margin: 20px 0;
+    padding: 0 20px; /* Add some padding for spacing */
+}
+
+.search-bar input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px; /* Add spacing between input and button */
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3;
+}
+
     </style>
 </head>
 <body>
@@ -96,9 +127,13 @@
         <a href="manageAcc.html">User accounts</a>
         <a href="manageEmployee.html">Employee accounts</a>
         <a href="adminBookings.html">Bookings</a>
+        <a href="employeeLogin.html">employee Login</a>
      
     </div>
-
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search appointments..." />
+        <button id="search-button">Search</button>
+    </div>
     <div class="content">
         <h1>Admin Bookings</h1>
         <section>
@@ -132,6 +167,7 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Status</th>
+                        
                     </tr>
                 </thead>
                 <tbody id="approved-container"></tbody>
@@ -193,83 +229,151 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+
+    
         
+ async function fetchappointments() {
+        const appointmentCollection = collection(db, "appointments");
+        const appointmentSnapshot = await getDocs(appointmentCollection);
+        const appointmentsList = appointmentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        displayappointments(appointmentsList);
+    }
 
-        async function fetchappointments() {
-            const appointmentCollection = collection(db, "appointments");
-            const appointmentSnapshot = await getDocs(appointmentCollection);
-            const appointmentsList = appointmentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            displayappointments(appointmentsList);
-        }
-        
+    // Display appointments categorized by status
+    function displayappointments(appointments) {
+        // Containers for different statuses
+        const pendingContainer = document.getElementById("pending-container");
+        const approvedContainer = document.getElementById("approved-container");
+        const rejectedContainer = document.getElementById("rejected-container");
+        const canceledContainer = document.getElementById("canceled-container");
 
-        function displayappointments(appointments) {
-    const appointmentsTableBody = document.getElementById("bookings-container");
-    appointmentsTableBody.innerHTML = "";
+        // Clear existing content in each container
+        pendingContainer.innerHTML = "";
+        approvedContainer.innerHTML = "";
+        rejectedContainer.innerHTML = "";
+        canceledContainer.innerHTML = "";
 
-    appointments.forEach((appointment, index) => {
-        const row = document.createElement("tr");
+        // Categorize and populate appointments
+        appointments.forEach((appointment, index) => {
+            const row = document.createElement("tr");
 
-        const assignedStaff = appointment.staffAssigned 
-            ? Object.entries(appointment.staffAssigned)
-                .filter(([service, staff]) => staff !== null)
-                .map(([service, staff]) => `${service.charAt(0).toUpperCase() + service.slice(1)} by: ${staff}`)
-                .join(', ')
-            : 'None';
+            const assignedStaff = appointment.staffAssigned
+                ? Object.entries(appointment.staffAssigned)
+                      .filter(([service, staff]) => staff !== null)
+                      .map(([service, staff]) => `${service.charAt(0).toUpperCase() + service.slice(1)} by: ${staff}`)
+                      .join(', ')
+                : 'None';
 
-        // Check if services is an array before calling join
-        const services = Array.isArray(appointment.services)
-            ? appointment.services.join(', ')
-            : appointment.services || 'N/A';
+            const services = Array.isArray(appointment.services)
+                ? appointment.services.join(', ')
+                : appointment.services || 'N/A';
 
-        row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${appointment.username || 'N/A'}</td>
-            <td>${services}</td>
-            <td>${assignedStaff}</td>
-            <td>${appointment.date || 'N/A'}</td>
-            <td>${appointment.time || 'N/A'}</td>
-            <td>${appointment.status || 'Pending'}</td>
-            <td>
-                <button class="approve-button" onclick="approveAppointment('${appointment.id}')">Approve</button>
-                <button class="reject-button" onclick="rejectAppointment('${appointment.id}')">Reject</button>
-                <button onclick="deleteAppointment('${appointment.id}')">Delete</button>
-            </td>
-        `;
+            // Populate row content
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${appointment.username || 'N/A'}</td>
+                <td>${services}</td>
+                <td>${assignedStaff}</td>
+                <td>${appointment.date || 'N/A'}</td>
+                <td>${appointment.time || 'N/A'}</td>
+                <td>${appointment.status || 'Pending'}</td>
+                ${appointment.status === "pending" ? `
+                <td>
+                    <button class="approve-button" onclick="approveAppointment('${appointment.id}')">Approve</button>
+                    <button class="reject-button" onclick="rejectAppointment('${appointment.id}')">Reject</button>
+                    <button onclick="deleteAppointment('${appointment.id}')">Delete</button>
+                </td>` : '<td></td>'}
+            `;
 
-        appointmentsTableBody.appendChild(row);
-    });
-}
-        // Move these functions outside of displayappointments
-        window.approveAppointment = async function(appointmentId) {
-            const appointmentRef = doc(db, "appointments", appointmentId);
-            await updateDoc(appointmentRef, { status: "approved" });
-            alert("Appointment approved!");
-            fetchappointments();
-        };
-
-        window.rejectAppointment = async function(appointmentId) {
-            const appointmentRef = doc(db, "appointments", appointmentId);
-            await updateDoc(appointmentRef, { status: "rejected" });
-            alert("Appointment rejected!");
-            fetchappointments(); 
-        };
-
-        window.deleteAppointment = async function(appointmentId) {
-            if (confirm("Are you sure you want to delete this appointment?")) {
-                const appointmentRef = doc(db, "appointments", appointmentId); 
-                try {
-                    await deleteDoc(appointmentRef);
-                    alert("Appointment deleted successfully!");
-                    fetchappointments(); 
-                } catch (error) {
-                    console.error("Error deleting appointment: ", error);
-                }
+            // Append to the appropriate container
+            switch (appointment.status) {
+                case "approved":
+                    approvedContainer.appendChild(row);
+                    break;
+                case "rejected":
+                    rejectedContainer.appendChild(row);
+                    break;
+                case "canceled":
+                    canceledContainer.appendChild(row);
+                    break;
+                default:
+                    pendingContainer.appendChild(row);
             }
-        };
+        });
+    }
 
-        window.onload = fetchappointments;
+    // Approve an appointment
+    window.approveAppointment = async function (appointmentId) {
+        const appointmentRef = doc(db, "appointments", appointmentId);
+        await updateDoc(appointmentRef, { status: "approved" });
+        alert("Appointment approved!");
+        fetchappointments();
+    };
 
+    // Reject an appointment
+    window.rejectAppointment = async function (appointmentId) {
+        const appointmentRef = doc(db, "appointments", appointmentId);
+        await updateDoc(appointmentRef, { status: "rejected" });
+        alert("Appointment rejected!");
+        fetchappointments();
+    };
+
+    // Delete an appointment
+    window.deleteAppointment = async function (appointmentId) {
+        if (confirm("Are you sure you want to delete this appointment?")) {
+            const appointmentRef = doc(db, "appointments", appointmentId);
+            try {
+                await deleteDoc(appointmentRef);
+                alert("Appointment deleted successfully!");
+                fetchappointments();
+            } catch (error) {
+                console.error("Error deleting appointment: ", error);
+            }
+        }
+    };
+
+    // Fetch appointments on page load
+    window.onload = fetchappointments;
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const searchButton = document.getElementById("search-button");
+    const searchInput = document.getElementById("search-input");
+
+    searchButton.addEventListener("click", () => {
+        const query = searchInput.value.trim().toLowerCase();
+
+        if (!query) {
+            alert("Please enter a search term.");
+            return;
+        }
+
+        // Search in all table rows
+        const tables = document.querySelectorAll("table tbody");
+        let found = false;
+
+        tables.forEach(tbody => {
+            const rows = tbody.querySelectorAll("tr");
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll("td");
+                row.style.backgroundColor = ""; // Clear previous highlights
+
+                cells.forEach(cell => {
+                    if (cell.textContent.toLowerCase().includes(query)) {
+                        found = true;
+                        row.style.backgroundColor = "#e4ffe5"; // Highlight row
+                        row.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }
+                });
+            });
+        });
+
+        if (!found) {
+            alert("No matches found.");
+        }
+    });
+});
     </script>
 </body>
 </html>

@@ -3,130 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title> <style>
+    <title>Employee Dashboard</title>
+    <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
         }
         .header {
             background-color: #f8d7da;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
             padding: 10px;
             text-align: center;
-            position: relative;
         }
-        .header .title {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .header .admin {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            font-weight: bold;
-        }
-        .sidebar {
-            width: 200px;
-            background-color: #f0f0f0;
-            padding: 10px;
-            height: 100vh;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            position: fixed;
-        }
-        .sidebar a {
-            display: block;
-            color: black;
-            padding: 10px 0;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        .sidebar a:hover {
-
-            background-color: #ddd;
-        }
-        .content {
-            margin-left: 220px;
-            padding: 20px;
-        }
-        body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-}
-
-h1 {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 15px;
-    text-align: center;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 10px;
-    text-align: center;
-}
-
-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-        </style>
+    </style>
 </head>
 <body>
-    
     <div class="header">
-        <div class="title">Crown and Polish Beauty Studio</div>
-        <div class="admin">admin</div>
+        <h1>Welcome, <span id="employeeName"></span></h1>
     </div>
+    <button onclick="window.location.href='employeeLogin.html'">BACK</button>
+   
+    <h2>Your Appointments</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Client</th>
+                <th>Service</th>
+            </tr>
+        </thead>
+        <tbody id="appointmentsTable">
+            <!-- Appointments will be dynamically added here -->
+        </tbody>
+    </table>
 
-    <div class="sidebar">
-        <a href="employeeRestriction.html">Manage accounts</a>
-        <a href="employeesPage.html">Employees</a>
-        <a href="employeeRestriction.html">Bookings</a>
-        <a href="employeeRestriction.html">Finances</a>
-        <a href="employeeRestriction.html">Stock Taking</a>
-    </div>
-    <div class="content"> <h1>Employees</h1>
-        <section>
-            <h2>Weekly employee Booking Sheet</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Employee</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>client</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="booking-table">
-                </tbody>
-            </table>
-            <button onclick="addBooking()">Add employee booking</button>
-        </section>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6OJmdKspro9Nb1FxwMH2PtN7WAJnKaUM",
+            authDomain: "code-crafts-f5107.firebaseapp.com",
+            projectId: "code-crafts-f5107",
+            storageBucket: "code-crafts-f5107.appspot.com",
+            messagingSenderId: "171510387289",
+            appId: "1:171510387289:web:4234c82d229a80bb5d9748",
+            measurementId: "G-Y9SCZHRVYZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        
+
+     
+// Before attempting to use sessionStorage data, log it to confirm that it's available
+console.log("SessionStorage before access:");
+console.log("First Name: ", sessionStorage.getItem("firstName"));
+console.log("Last Name: ", sessionStorage.getItem("lastName"));
+console.log("Employee UID: ", sessionStorage.getItem("employeeUID"));
+
+// Retrieve employee details from sessionStorage
+const firstName = sessionStorage.getItem("firstName");
+const lastName = sessionStorage.getItem("lastName");
+const employeeUID = sessionStorage.getItem("employeeUID");
+
+// Log to verify correct data retrieval
+console.log("First Name:", firstName);
+console.log("Last Name:", lastName);
+console.log("Employee UID:", employeeUID);
+
+// If the data is present, proceed with constructing the full name
+if (firstName && lastName) {
+    const employeeFullName = `${firstName} ${lastName}`;
+    console.log("Employee Full Name: ", employeeFullName);
+    document.getElementById("employeeName").textContent = employeeFullName;
+} else {
+    console.error("Error: First name or last name is missing from sessionStorage.");
+}
+
+// Fetch appointments from Firestore
+async function fetchAppointments() {
+    try {
+        const appointmentsRef = collection(db, "appointments");
+        console.log("Querying appointments for: ", firstName, lastName);
+
+        const q = query(appointmentsRef, where("staffAssigned", "==", `${firstName} ${lastName}`));
+        const querySnapshot = await getDocs(q);
+        const tableBody = document.getElementById("appointmentsTable");
+
+        let index = 1;
+        console.log("Number of appointments found: ", querySnapshot.size);
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            console.log("Appointment Data: ", data);
+
+            const row = `
+                <tr>
+                    <td>${index++}</td>
+                    <td>${data.date}</td>
+                    <td>${data.time}</td>
+                    <td>${data.username}</td>
+                    <td>${data.service}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+
+        if (index === 1) {
+            tableBody.innerHTML = `<tr><td colspan="5">No appointments found.</td></tr>`;
+        }
+    } catch (error) {
+        console.error("Error fetching appointments:", error);
+        alert("Could not load appointments.");
+    }
+}
+
+// Fetch appointments on page load
+fetchAppointments();
+
+    </script>
 </body>
 </html>
