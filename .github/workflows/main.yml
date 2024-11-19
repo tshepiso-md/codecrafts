@@ -16,12 +16,20 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all branches and history
 
-      # Debug Git
+      # Debug Git and verify branches
       - name: Debug Git
         run: |
+          echo "Available remote branches:"
           git branch -r
+          echo "Fetching branches from origin..."
           git fetch origin
-          git checkout webAdminBranch
+          echo "Checking out webAdminBranch..."
+          if git ls-remote --heads origin webAdminBranch; then
+            git checkout webAdminBranch
+          else
+            echo "Error: webAdminBranch does not exist. Exiting."
+            exit 1
+          fi
 
       # List files
       - name: List files
